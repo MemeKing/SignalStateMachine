@@ -57,12 +57,6 @@ func _physics_process(_delta: float) -> void:
 	if actor.y < 0: fell_in_pit.emit()
 ```
 
-## Tips
-
-Only one state's physics_process will run simultaneously. If Input.is_action_just_pressed() is used to trigger a state change, just_pressed will be false in the ensuing state, until the action is pressed again during that state. 
-
-At the beginning of a state's process, make shorthand variables for the properties of actor which you are most concerned with in order to avoid typing actor.this actor.that too much and keep thing focused.
-
 ## Credits
 
 Heartbeast https://www.youtube.com/watch?v=qwOM3v8T33Q

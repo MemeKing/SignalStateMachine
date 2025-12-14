@@ -1,3 +1,5 @@
+@icon("res://addons/fsm/icon.png")
+
 class_name FiniteStateMachine extends Node
 
 var state: FSMState
