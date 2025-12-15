@@ -9,23 +9,23 @@ However there is an "FSMState" class and template, as well as a function to help
 
 ### FiniteStateMachine
 #### Properties
-'state': points to the currently running state node. Modifying this won't trigger change_state() so don't bother.
+`state`: points to the currently running state node. Modifying this won't trigger change_state() so don't bother.
 
 #### Functions
-_change_state(new_state) : For internal use but you can force a state switch if you have an fsmstate to switch to.
+`_change_state(new_state)` : For internal use but you can force a state switch if you have an fsmstate to switch to.
 
-link() : Use this in the _ready() function of your root node to link signals to states. See below example for more.
+`link()` : Use this in the _ready() function of your root node to link signals to states. See below example for more.
 
 ### FSMState
 
 #### Properties
-actor : represents the root node which the fsm is acting on.
+`actor` : represents the root node which the fsm is acting on.
 
 #### Functions
 
-_enter_state() : For setup that needs to be done every time the state is entered, such as setting timers or modifying hitboxes.
-_exit_state() : Runs every time the state is exited, even if physics_process() was cut off early. 
-_physics_process() : You must use physics_process for the state's behavior.
+`_enter_state()` : For setup that needs to be done every time the state is entered, such as setting timers or modifying hitboxes.
+`_exit_state()` : Runs every time the state is exited, even if physics_process() was cut off early. 
+`_physics_process()` : You must use physics_process for the state's behavior.
 
 ### Example Characterbody2D script using fsm
 
@@ -60,4 +60,5 @@ func _physics_process(_delta: float) -> void:
 ## Credits
 
 Heartbeast https://www.youtube.com/watch?v=qwOM3v8T33Q
+
 pixel-boy for icon https://pixel-boy.itch.io/icon-godot-node
