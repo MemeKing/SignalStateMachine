@@ -3,12 +3,13 @@
 class_name FiniteStateMachine extends Node
 
 var state: FSMState
+var hist : Array
 
 func _ready():
 	for i in get_children(): 
 		i.actor = get_parent()
 		i.set_physics_process(false)
-	_change_state(get_child(0))
+	call_deferred("deferred_start")
 
 func _change_state(new_state: FSMState):
 	if state is FSMState: # Will skip if current state is null.
@@ -18,6 +19,15 @@ func _change_state(new_state: FSMState):
 		state = new_state
 		state.set_physics_process(true)
 		state._enter_state()
+		hist.insert(0,state)
+		hist.resize(5)
 
 func link(source_state,signal_name,linked_state):
-	source_state.connect(signal_name,Callable(self, "_change_state").bind(linked_state))
+	source_state.connect( signal_name, Callable(self, "_change_state").bind(linked_state) )
+
+func pop_state():
+	hist.remove_at(0)
+	_change_state(hist[0])
+
+func deferred_start():
+	_change_state(get_child(0))
