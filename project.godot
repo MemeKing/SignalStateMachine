@@ -10,6 +10,7 @@ config_version=5
 
 [application]
 
-config/name="testfsm"
+config/name="Signal State Machine"
 run/main_scene="uid://vin63hfnmuvg"
 config/features=PackedStringArray("4.5", "Forward Plus")
+config/icon="uid://d1dae4lhxoq2p"
