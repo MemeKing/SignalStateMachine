@@ -1,25 +1,29 @@
 # Epic State Machine
 
 ## Intro
-This addon implements a finite state machine using signals between an fsm node and attachable state nodes.
-The design came from HeartBeast's tutorial on Finite State Machines, and the behavior does not differ very much. 
-However there is an "FSMState" class and template, as well as a function to help link states.
+This addon implements a finite state machine using signals between an fsm node and attachable state nodes. The design came from HeartBeast's tutorial on Finite State Machines, and the behavior does not differ very much. However there is an "FSMState" class and template, as well as a function to help link states.
 
-## Classes
+### FiniteStateMachine class
 
-### FiniteStateMachine
-#### Properties
+Instantiate one of these as a child to whatever you want to control via FSM.
+
+#### Properties (just one)
 `state`: points to the currently running state node. Modifying this won't trigger change_state() so don't bother.
 
 #### Functions
-`_change_state(new_state)` : For internal use but you can force a state switch if you have an fsmstate to switch to.
+`_change_state(new_state)` : This is primarily meant to be triggered automatically by binding the exit signals of states. However you can manually invoke it if you have an FSMState nodepath to provide.
 
 `link()` : Use this in the _ready() function of your root node to link signals to states. See below example for more.
 
-### FSMState
+`pop_state()` : Experimental feature. Running in a state reverts fsm to its previous state, whatever it was before. Probably not staying.
+
+### FSMState class
+
+Extend this class to make a new state.
 
 #### Properties
-`actor` : represents the root node which the fsm is acting on.
+
+`actor` : represents the root node which the fsm is acting on. A property such as velocity can be referenced with `actor.velocity`. In very long state scripts it's recommended to stash shorthand versions of variables that will be referenced a lot.
 
 #### Functions
 
