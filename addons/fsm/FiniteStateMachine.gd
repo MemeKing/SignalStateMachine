@@ -25,9 +25,5 @@ func _change_state(new_state: FSMState):
 func link(source_state,signal_name,linked_state):
 	source_state.connect( signal_name, Callable(self, "_change_state").bind(linked_state) )
 
-func pop_state():
-	hist.remove_at(0)
-	_change_state(hist[0])
-
 func deferred_start():
 	_change_state(get_child(0))
