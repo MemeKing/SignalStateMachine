@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://vin63hfnmuvg"]
+[gd_scene format=3 uid="uid://vin63hfnmuvg"]
 
 [ext_resource type="Script" uid="uid://6v7nibywdm8r" path="res://addons/fsm/FiniteStateMachine.gd" id="1_tain8"]
 [ext_resource type="Script" uid="uid://q70ywqeom5lv" path="res://addons/fsm/example/example_runaround.gd" id="2_msoa3"]
@@ -52,45 +52,45 @@ fill_to = Vector2(0.4059829, 0.14102565)
 [sub_resource type="LabelSettings" id="LabelSettings_fthqt"]
 font_size = 32
 
-[node name="Example" type="Node2D"]
+[node name="Example" type="Node2D" unique_id=1816000173]
 script = SubResource("GDScript_fthqt")
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+[node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=2111446956]
 position = Vector2(608, 377)
 script = SubResource("GDScript_ii2sj")
 
-[node name="FiniteStateMachine" type="Node" parent="CharacterBody2D"]
+[node name="FiniteStateMachine" type="Node" parent="CharacterBody2D" unique_id=1601625341]
 script = ExtResource("1_tain8")
 
-[node name="ExampleRunaround" type="Node" parent="CharacterBody2D/FiniteStateMachine"]
+[node name="ExampleRunaround" type="Node" parent="CharacterBody2D/FiniteStateMachine" unique_id=1087056883]
 script = ExtResource("2_msoa3")
 move_speed = 400
 jump_speed = 400
 metadata/_custom_type_script = "uid://q70ywqeom5lv"
 
-[node name="ExampleNoclipState" type="Node" parent="CharacterBody2D/FiniteStateMachine"]
+[node name="ExampleNoclipState" type="Node" parent="CharacterBody2D/FiniteStateMachine" unique_id=1495249701]
 script = ExtResource("3_6hyqq")
 acceleration = 300
 friction = 300
 metadata/_custom_type_script = "uid://chs6gsx2euj1r"
 
-[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D" unique_id=1499002243]
 texture = SubResource("GradientTexture2D_fthqt")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=2126143263]
 shape = SubResource("RectangleShape2D_xfl8h")
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1776883570]
 position = Vector2(953, 447)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1693370745]
 shape = SubResource("WorldBoundaryShape2D_0s5oh")
 
-[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D" unique_id=283019162]
 position = Vector2(0, 35)
 texture = SubResource("GradientTexture2D_rvjwe")
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="." unique_id=2026597020]
 offset_right = 40.0
 offset_bottom = 23.0
 text = "Current State:"
