@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://73jtusfjkoxw"]
+
+[ext_resource type="Script" uid="uid://6v7nibywdm8r" path="res://addons/fsm/SignalStateMachine.gd" id="1_h788a"]
+[ext_resource type="Script" uid="uid://bkagppqbc2amc" path="res://addons/fsm/example/characters/roguelike/states/RLFlippyJump.gd" id="1_r0tl6"]
+[ext_resource type="Script" uid="uid://b7v3gwost5rrf" path="res://addons/fsm/example/characters/Celestial/states/JDBasicState.gd" id="2_dgxt4"]
+[ext_resource type="Script" uid="uid://bgad8cjq7jv38" path="res://addons/fsm/example/characters/roguelike/states/RLDash.gd" id="3_vbjrg"]
+
+[sub_resource type="GDScript" id="GDScript_s8qxd"]
+script/source = "extends CharacterBody2D
+
+@export var weapon_script : Script
+
+var speed = 60
+var jump_speed = -400.0
+var grav = 300
+var dpad_nerf = 1
+
+@onready var fsm = $SignalStateMachine
+@onready var basic = $SignalStateMachine/JDBasicState
+@onready var dash = $SignalStateMachine/RLDashState
+
+func _ready() -> void:
+	var weapon_attack = weapon_script.new()
+	fsm.add_child(weapon_attack)
+	
+	fsm.link(basic,\"dashed\",dash)
+	fsm.link(basic,\"attacked\",weapon_attack)
+	
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3ylld"]
+size = Vector2(20, 34.62)
+
+[node name="SelectedZombie" type="CharacterBody2D" unique_id=181008636]
+script = SubResource("GDScript_s8qxd")
+weapon_script = ExtResource("1_r0tl6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=634171622]
+shape = SubResource("RectangleShape2D_3ylld")
+
+[node name="SignalStateMachine" type="Node" parent="." unique_id=5993107]
+script = ExtResource("1_h788a")
+metadata/_custom_type_script = "uid://6v7nibywdm8r"
+
+[node name="JDBasicState" type="Node" parent="SignalStateMachine" unique_id=233549265]
+script = ExtResource("2_dgxt4")
+metadata/_custom_type_script = "uid://b7v3gwost5rrf"
+
+[node name="RLDashState" type="Node" parent="SignalStateMachine" unique_id=463546562]
+script = ExtResource("3_vbjrg")
+speed = 171
+max_duration = 0.385
+vertical_allowed = false
+gravity = 25
+metadata/_custom_type_script = "uid://bgad8cjq7jv38"

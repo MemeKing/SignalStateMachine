@@ -14,8 +14,10 @@ func _enter_state():
 func _exit_state():
 	actor.hitbox.disabled = false
 	actor.rotation = 0
+	print("Exited.")
 
 func _physics_process(delta: float) -> void:
+	print("I ran!")
 	var v = actor.velocity as Vector2
 	var x = Input.get_axis("ui_left","ui_right")
 	var y = Input.get_axis("ui_up","ui_down")

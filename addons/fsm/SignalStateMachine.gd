@@ -10,18 +10,16 @@ class_name SignalStateMachine extends Node
 ## [br] [br]
 ## See [FSMState] for more information on making states.
 
-## The scene/entity that this FSM is controlling. Can be any Node type, but take 
-## care in assigning states. If a state tries to access a non-existent property 
-## or function, a crash will occur.
+## The scene/entity that this FSM is controlling. Can be any [Node] type, but if a state tries to 
+## access a non-existent member of [actor], a crash will occur.
 @export var actor : Node
 
-## The state the fsm is currently in. Setting this before the FSM runs will set a default state.
-## Otherwise for reference only. Use [change_state()] or [revert()] to force a state change.
-var current_state: FSMState
+## The state the fsm is currently in. Set before FSM runs to set a default state.
+## Otherwise for reference only. [br]Use [code]change_state()[/code] to force a state change.
+@export var current_state: FSMState
 
 
-## Link a state's signal to a target state. The FSM will then transition to the target state whenever
-## the signal is emitted. It's best to run this from the actor's _ready().[br][br]
+## Set the FSM to transition to the target state whenever a signal is emitted. It's best to run this from the actor's _ready().[br][br]
 ## [b]Example:   [/b][code]fsm.connect(airborne_state, "touched_wall", wallslide_state)[/code]
 func link(source: FSMState, exit_signal: String, target: FSMState):
 	source.connect(exit_signal, Callable(self, "change_state").bind(target))
@@ -30,7 +28,7 @@ func link(source: FSMState, exit_signal: String, target: FSMState):
 func revert_to_default_state():
 	change_state(get_child(0))
 
-## Transition to the provided state. 
+## Transition to the provided state.
 func change_state(new_state: FSMState):
 	if current_state is FSMState:
 		current_state.set_physics_process(false)
@@ -48,8 +46,8 @@ func _ready() -> void:
 	get_parent().ready.connect(setup)
 
 
-## Initialize state collection. Runs automatically when actor emits the ready 
-## signal. If you add a child state during gameplay you must run this immediately.
+## Initialize children. Runs automatically when actor emits the ready 
+## signal. If you add a child state during gameplay you must run this again.
 func setup():
 	if not actor:
 		actor = get_parent()

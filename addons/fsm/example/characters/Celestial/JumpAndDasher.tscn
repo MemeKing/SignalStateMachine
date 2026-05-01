@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://cpeb8wnru2not"]
+
+[ext_resource type="Script" uid="uid://6v7nibywdm8r" path="res://addons/fsm/SignalStateMachine.gd" id="1_sst55"]
+[ext_resource type="Script" uid="uid://b7v3gwost5rrf" path="res://addons/fsm/example/characters/Celestial/states/JDBasicState.gd" id="2_sst55"]
+[ext_resource type="Script" uid="uid://bgad8cjq7jv38" path="res://addons/fsm/example/characters/roguelike/states/RLDash.gd" id="3_bvmyo"]
+[ext_resource type="Script" uid="uid://bjwxvxuhexls4" path="res://addons/fsm/example/characters/Celestial/states/JDWallslide.gd" id="4_cbace"]
+
+[sub_resource type="GDScript" id="GDScript_f7ahu"]
+script/source = "extends CharacterBody2D
+
+@export var speed = 150
+@export var jump_velocity = -400.0
+@export var grav = 300
+
+@onready var fsm = $SignalStateMachine
+@onready var basic = $SignalStateMachine/JDBasicState
+@onready var dash = $SignalStateMachine/RLDashState
+@onready var wallslide = $SignalStateMachine/JDWallslide
+
+var dpad_nerf = 1
+
+func _ready() -> void:
+	fsm.link(basic,\"dashed\",dash)
+	fsm.link(basic,\"started_wallslide\",wallslide)
+
+func _physics_process(delta: float) -> void:
+	dpad_nerf = clamp(dpad_nerf+(delta/2),0,1)
+"
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_l2ngy"]
+radius = 14.55
+height = 54.5
+
+[node name="CelestialCharacter" type="CharacterBody2D" unique_id=458612283]
+script = SubResource("GDScript_f7ahu")
+jump_velocity = -200.0
+
+[node name="SignalStateMachine" type="Node" parent="." unique_id=1778254563]
+script = ExtResource("1_sst55")
+metadata/_custom_type_script = "uid://6v7nibywdm8r"
+
+[node name="JDBasicState" type="Node" parent="SignalStateMachine" unique_id=1929273361]
+script = ExtResource("2_sst55")
+metadata/_custom_type_script = "uid://b7v3gwost5rrf"
+
+[node name="RLDashState" type="Node" parent="SignalStateMachine" unique_id=383909879]
+script = ExtResource("3_bvmyo")
+speed = 350
+max_duration = 0.25
+metadata/_custom_type_script = "uid://bgad8cjq7jv38"
+
+[node name="JDWallslide" type="Node" parent="SignalStateMachine" unique_id=8107749]
+script = ExtResource("4_cbace")
+metadata/_custom_type_script = "uid://bjwxvxuhexls4"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=260227991]
+shape = SubResource("CapsuleShape2D_l2ngy")
