@@ -1,6 +1,6 @@
 # Signal State Machine
 
-Finite state machine using signals between an fsm node and attachable state nodes.
+Finite state machine for Godot using signals between an fsm node and attachable state nodes.
 
 Includes example characters for multiple genres, and full documentation.
 
