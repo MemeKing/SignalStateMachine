@@ -2,7 +2,7 @@
 
 Finite state machine for Godot using signals between an fsm node and attachable state nodes.
 
-Includes example characters for multiple genres, and full documentation.
+Full documentation is provided but please see the "example characters" for a quick-start and demonstration of how different genres can be achieved. Feel free to use these characters in games if they suit your purposes.
 
 ### Example Characterbody2D script using fsm
 
