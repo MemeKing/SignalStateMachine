@@ -20,6 +20,7 @@ class_name FSMState extends Node
 ## The node this state controls. Reference this to affect the entity. Example: [code]entity.velocity.x = 0[/code]
 var entity : Node
 
+
 # If this node is freed, always reset fsm to ensure _exit_state is run. Override this function (or comment it out) if this behavior causes problems and you want to manage things another way. 
 func _exit_tree(): revert()
 
@@ -28,10 +29,6 @@ func _enter_state() -> void: pass
 
 ## Called when exiting this state. Use for cleanup code.
 func _exit_state() -> void: pass
-
-
-func _physics_process(delta: float) -> void : pass
-
 
 ## Resets the fsm back to it's default state. 
 func revert(): get_parent().revert_to_default_state()
