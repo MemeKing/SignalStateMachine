@@ -5,30 +5,32 @@ var cooldown = 1
 
 func _physics_process(delta: float) -> void:
 	var side = 0
-	if actor.get_last_slide_collision():
-		side = actor.get_last_slide_collision().get_normal().x
+	if entity.get_last_slide_collision():
+		side = entity.get_last_slide_collision().get_normal().x
 	else:
 		revert()
-	var v = actor.velocity
-	actor.velocity.x = -side
+	var v = entity.velocity
+	entity.velocity.x = -side
 	
 	if v.y > 0: 
 		v.y = move_toward(v.y,100,400*delta)
 	else:
-		v.y += actor.grav * delta
+		v.y += entity.grav * delta
 	
-	if actor.is_on_floor():
+	if entity.is_on_floor():
 		revert()
 		return
 
-	if Input.is_action_just_pressed("ui_accept"):
+	if Input.is_action_just_pressed("jump"):
 		v.x = 150 * sign(side)
-		if v.y > actor.jump_velocity:
-			v.y = actor.jump_velocity
+		if v.y > entity.jump_velocity:
+			v.y = entity.jump_velocity
 		else:
-			v.y += actor.jump_velocity
-		actor.dpad_nerf = 0
-		revert()
+			v.y += entity.jump_velocity
+		
+		if "dpad_nerf" in entity:
+			entity.dpad_nerf = 0
+			revert()
 	
-	actor.velocity = v
-	actor.move_and_slide()
+	entity.velocity = v
+	entity.move_and_slide()

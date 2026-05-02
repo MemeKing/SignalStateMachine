@@ -2,6 +2,9 @@
 
 [ext_resource type="Texture2D" uid="uid://da6iwlhl8fhyh" path="res://screenshot.png" id="1_q7o4g"]
 [ext_resource type="PackedScene" uid="uid://73jtusfjkoxw" path="res://addons/fsm/example/characters/dim_spirits/char_selected_zombie.tscn" id="2_23wuu"]
+[ext_resource type="Script" uid="uid://ycfa4mg5xosw" path="res://addons/fsm/example/characters/roguelike/states/RLDummy.gd" id="3_6018i"]
+[ext_resource type="PackedScene" uid="uid://cn4lpbv2l8rwe" path="res://addons/fsm/example/characters/dim_spirits/WeaponPickup.tscn" id="4_a05jo"]
+[ext_resource type="Script" uid="uid://bgad8cjq7jv38" path="res://addons/fsm/example/characters/roguelike/states/RLDash.gd" id="5_6018i"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_c1twu"]
 texture = ExtResource("1_q7o4g")
@@ -25,3 +28,24 @@ tile_set = SubResource("TileSet_wd7ou")
 
 [node name="SelectedZombie" parent="." unique_id=181008636 instance=ExtResource("2_23wuu")]
 position = Vector2(495, 254)
+weapon_script = ExtResource("3_6018i")
+
+[node name="Area2D2" parent="." unique_id=1073593096 instance=ExtResource("4_a05jo")]
+position = Vector2(935, 481)
+weapon_script = ExtResource("5_6018i")
+weapon_name = "DashDagger"
+
+[node name="Area2D" parent="." unique_id=561669944 instance=ExtResource("4_a05jo")]
+position = Vector2(609, 419)
+weapon_name = "Flip Sword"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=615427868]
+
+[node name="Label" type="Label" parent="CanvasLayer" unique_id=428358496]
+offset_left = 61.0
+offset_top = 60.0
+offset_right = 101.0
+offset_bottom = 83.0
+text = "Z: Jump
+X: Dodge
+C: Use weapon (wowzers)"

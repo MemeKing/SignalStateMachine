@@ -7,13 +7,13 @@ signal do_action_1
 signal do_action_2
 
 func _physics_process(delta: float) -> void:
-	actor.rotation = rotate_toward(actor.rotation,0,delta)
-	var v = actor.velocity
-	var grounded = actor.is_on_floor()
+	entity.rotation = rotate_toward(entity.rotation,0,delta)
+	var v = entity.velocity
+	var grounded = entity.is_on_floor()
 	var direction = Input.get_axis("ui_left", "ui_right")
 	
 
-	v.x = sign(direction) * actor.move_speed
+	v.x = sign(direction) * entity.move_speed
 	
 	if not grounded: v.y += grav * delta
 
@@ -22,5 +22,5 @@ func _physics_process(delta: float) -> void:
 
 
 	
-	actor.velocity = v
-	actor.move_and_slide()
+	entity.velocity = v
+	entity.move_and_slide()

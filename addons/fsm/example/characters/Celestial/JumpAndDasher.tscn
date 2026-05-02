@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cpeb8wnru2not"]
 
-[ext_resource type="Script" uid="uid://6v7nibywdm8r" path="res://addons/fsm/SignalStateMachine.gd" id="1_sst55"]
+[ext_resource type="Script" uid="uid://6v7nibywdm8r" path="res://addons/fsm/FiniteStateMachine.gd" id="1_sst55"]
 [ext_resource type="Script" uid="uid://b7v3gwost5rrf" path="res://addons/fsm/example/characters/Celestial/states/JDBasicState.gd" id="2_sst55"]
 [ext_resource type="Script" uid="uid://bgad8cjq7jv38" path="res://addons/fsm/example/characters/roguelike/states/RLDash.gd" id="3_bvmyo"]
 [ext_resource type="Script" uid="uid://bjwxvxuhexls4" path="res://addons/fsm/example/characters/Celestial/states/JDWallslide.gd" id="4_cbace"]

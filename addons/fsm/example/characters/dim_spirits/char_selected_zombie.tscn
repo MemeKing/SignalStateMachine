@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://73jtusfjkoxw"]
 
-[ext_resource type="Script" uid="uid://6v7nibywdm8r" path="res://addons/fsm/SignalStateMachine.gd" id="1_h788a"]
+[ext_resource type="Script" uid="uid://6v7nibywdm8r" path="res://addons/fsm/FiniteStateMachine.gd" id="1_h788a"]
 [ext_resource type="Script" uid="uid://bkagppqbc2amc" path="res://addons/fsm/example/characters/roguelike/states/RLFlippyJump.gd" id="1_r0tl6"]
 [ext_resource type="Script" uid="uid://b7v3gwost5rrf" path="res://addons/fsm/example/characters/Celestial/states/JDBasicState.gd" id="2_dgxt4"]
 [ext_resource type="Script" uid="uid://bgad8cjq7jv38" path="res://addons/fsm/example/characters/roguelike/states/RLDash.gd" id="3_vbjrg"]
@@ -10,22 +10,28 @@ script/source = "extends CharacterBody2D
 
 @export var weapon_script : Script
 
-var speed = 60
-var jump_speed = -400.0
-var grav = 300
-var dpad_nerf = 1
-
 @onready var fsm = $SignalStateMachine
 @onready var basic = $SignalStateMachine/JDBasicState
 @onready var dash = $SignalStateMachine/RLDashState
 
-func _ready() -> void:
-	var weapon_attack = weapon_script.new()
+var weapon_attack
+var speed = 120
+var jump_speed = -400.0
+var grav = 300
+
+func equip_weapon(wep : Script):
+	weapon_attack.free()
+	weapon_attack = wep.new()
 	fsm.add_child(weapon_attack)
-	
+	fsm.unlink(basic,\"attacked\")
+	fsm.setup()
+	fsm.link(basic,\"attacked\",weapon_attack)
+
+func _ready() -> void:
+	weapon_attack = weapon_script.new()
+	fsm.add_child(weapon_attack)
 	fsm.link(basic,\"dashed\",dash)
 	fsm.link(basic,\"attacked\",weapon_attack)
-	
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3ylld"]
@@ -53,3 +59,10 @@ max_duration = 0.385
 vertical_allowed = false
 gravity = 25
 metadata/_custom_type_script = "uid://bgad8cjq7jv38"
+
+[node name="Polygon2D" type="Polygon2D" parent="." unique_id=1623164506]
+color = Color(0.74693966, 0.07607218, 0.33204895, 1)
+polygon = PackedVector2Array(-10, -17, -10, 17, -5, 17, -3, 7, 3, 7, 5, 17, 10, 17, 10, -18)
+
+[node name="Polygon2D" type="Polygon2D" parent="Polygon2D" unique_id=1054817131]
+polygon = PackedVector2Array(-6, -12, -7, -6, 7, -7, 4, -14)

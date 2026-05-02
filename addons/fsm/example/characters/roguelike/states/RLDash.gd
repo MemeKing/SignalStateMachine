@@ -14,7 +14,7 @@ var target_velocity = Vector2.ZERO
 
 func _enter_state() -> void:
 	duration = 0
-	actor.velocity = Vector2.ZERO
+	entity.velocity = Vector2.ZERO
 	
 	direction.x = Input.get_axis("ui_left","ui_right")
 	if vertical_allowed:
@@ -24,18 +24,18 @@ func _enter_state() -> void:
 
 	
 func _physics_process(delta: float) -> void:
-	actor = actor as CharacterBody2D
+	entity = entity as CharacterBody2D
 	
-	actor.velocity = actor.velocity.move_toward(target_velocity,5000*delta)
-	actor.velocity.y += gravity
+	entity.velocity = entity.velocity.move_toward(target_velocity,5000*delta)
+	entity.velocity.y += gravity
 	duration += delta
 	if duration >= max_duration:
 		revert()
 
-	actor.move_and_slide()
+	entity.move_and_slide()
 
-	if actor.is_on_ceiling(): revert()
-	if actor.is_on_wall(): revert()
+	if entity.is_on_ceiling(): revert()
+	if entity.is_on_wall(): revert()
 		
 	if cancel_on_floor:
-		if actor.is_on_floor(): revert()
+		if entity.is_on_floor(): revert()

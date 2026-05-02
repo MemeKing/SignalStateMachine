@@ -9,16 +9,16 @@ signal exited_noclip
 func _ready() -> void: pass 
 
 func _enter_state():
-	actor.hitbox.disabled = true
+	entity.hitbox.disabled = true
 
 func _exit_state():
-	actor.hitbox.disabled = false
-	actor.rotation = 0
+	entity.hitbox.disabled = false
+	entity.rotation = 0
 	print("Exited.")
 
 func _physics_process(delta: float) -> void:
 	print("I ran!")
-	var v = actor.velocity as Vector2
+	var v = entity.velocity as Vector2
 	var x = Input.get_axis("ui_left","ui_right")
 	var y = Input.get_axis("ui_up","ui_down")
 	var axis = Vector2(x,y)
@@ -31,7 +31,7 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("ui_accept"):
 		exited_noclip.emit()
 	
-	actor.rotate(delta)
+	entity.rotate(delta)
 	
-	actor.velocity = v
-	actor.move_and_slide()
+	entity.velocity = v
+	entity.move_and_slide()

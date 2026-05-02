@@ -10,8 +10,8 @@ signal enter_noclip
 func _enter_state(): print("We entered the runaround state!")
 
 func _physics_process(delta: float) -> void:
-	var v = actor.velocity
-	var grounded = actor.is_on_floor()
+	var v = entity.velocity
+	var grounded = entity.is_on_floor()
 	var direction = Input.get_axis("ui_left", "ui_right")
 	
 	if not grounded: v.y += grav * delta
@@ -24,8 +24,8 @@ func _physics_process(delta: float) -> void:
 	if direction: v.x = direction * move_speed
 	else: v.x = move_toward(v.x, 0, move_speed)
 	
-	actor.velocity = v
-	actor.move_and_slide()
+	entity.velocity = v
+	entity.move_and_slide()
 
 func _exit_state(): 
 	print("Goodbye, leaving runaround state.")
