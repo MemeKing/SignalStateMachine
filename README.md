@@ -2,7 +2,13 @@
 
 Finite state machine for Godot using signals between an fsm node and attachable state nodes.
 
-Full documentation is provided but please see the "example characters" for a quick-start and demonstration of how different genres can be achieved. Feel free to use these characters in games if they suit your purposes.
+Full documentation is provided but please see the "example characters" for a quick-start and demonstration of how different genres can be achieved. Feel free to use these characters in games if they suit your purposes well enough.
+
+Celestial: A platforming character that can dash and walljump. 
+
+ChosenZombie: Can equip different weapons that effect movement while attacking. 
+
+Please suggest more character types if you have ideas.
 
 ### Example Characterbody2D script using fsm
 
