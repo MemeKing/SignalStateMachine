@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://6v7nibywdm8r" path="res://addons/fsm/FiniteStateMachine.gd" id="1_h788a"]
 [ext_resource type="Script" uid="uid://bkagppqbc2amc" path="res://addons/fsm/example/characters/roguelike/states/RLFlippyJump.gd" id="1_r0tl6"]
-[ext_resource type="Script" uid="uid://b7v3gwost5rrf" path="res://addons/fsm/example/characters/Celestial/states/JDBasicState.gd" id="2_dgxt4"]
+[ext_resource type="Script" uid="uid://b7v3gwost5rrf" path="res://addons/fsm/example/characters/Celestial/states/CelestialBasicState.gd" id="2_dgxt4"]
 [ext_resource type="Script" uid="uid://bgad8cjq7jv38" path="res://addons/fsm/example/characters/roguelike/states/RLDash.gd" id="3_vbjrg"]
 
 [sub_resource type="GDScript" id="GDScript_s8qxd"]
@@ -14,10 +14,13 @@ script/source = "extends CharacterBody2D
 @onready var basic = $SignalStateMachine/JDBasicState
 @onready var dash = $SignalStateMachine/RLDashState
 
+@onready var attack_shape = $Attack/CollisionShape2D
+
 var weapon_attack
 var speed = 120
 var jump_speed = -400.0
 var grav = 300
+
 
 func equip_weapon(wep : Script):
 	weapon_attack.free()
@@ -34,12 +37,57 @@ func _ready() -> void:
 	fsm.link(basic,\"attacked\",weapon_attack)
 "
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0yb1r"]
+size = Vector2(7.39, 35.87)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3ylld"]
 size = Vector2(20, 34.62)
+
+[sub_resource type="Animation" id="Animation_0yb1r"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Attack:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_aby3g"]
+resource_name = "raise_above_head"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Attack:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -32)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_m0u4u"]
+_data = {
+&"RESET": SubResource("Animation_0yb1r"),
+&"raise_above_head": SubResource("Animation_aby3g")
+}
 
 [node name="SelectedZombie" type="CharacterBody2D" unique_id=181008636]
 script = SubResource("GDScript_s8qxd")
 weapon_script = ExtResource("1_r0tl6")
+
+[node name="Attack" type="Area2D" parent="." unique_id=769264332]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Attack" unique_id=1078708393]
+shape = SubResource("RectangleShape2D_0yb1r")
+debug_color = Color(0.90588236, 0, 0.45490196, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=634171622]
 shape = SubResource("RectangleShape2D_3ylld")
@@ -66,3 +114,7 @@ polygon = PackedVector2Array(-10, -17, -10, 17, -5, 17, -3, 7, 3, 7, 5, 17, 10, 
 
 [node name="Polygon2D" type="Polygon2D" parent="Polygon2D" unique_id=1054817131]
 polygon = PackedVector2Array(-6, -12, -7, -6, 7, -7, 4, -14)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1821676620]
+libraries/ = SubResource("AnimationLibrary_m0u4u")
+speed_scale = 1.925

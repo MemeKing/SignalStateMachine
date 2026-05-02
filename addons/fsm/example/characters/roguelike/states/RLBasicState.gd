@@ -6,6 +6,8 @@ extends FSMState
 signal do_action_1
 signal do_action_2
 
+
+	
 func _physics_process(delta: float) -> void:
 	entity.rotation = rotate_toward(entity.rotation,0,delta)
 	var v = entity.velocity

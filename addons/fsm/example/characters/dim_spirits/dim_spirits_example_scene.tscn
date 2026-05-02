@@ -1,8 +1,8 @@
 [gd_scene format=4 uid="uid://cwp0xpv5vxeif"]
 
 [ext_resource type="Texture2D" uid="uid://da6iwlhl8fhyh" path="res://screenshot.png" id="1_q7o4g"]
-[ext_resource type="PackedScene" uid="uid://73jtusfjkoxw" path="res://addons/fsm/example/characters/dim_spirits/char_selected_zombie.tscn" id="2_23wuu"]
-[ext_resource type="Script" uid="uid://ycfa4mg5xosw" path="res://addons/fsm/example/characters/roguelike/states/RLDummy.gd" id="3_6018i"]
+[ext_resource type="PackedScene" uid="uid://73jtusfjkoxw" path="res://addons/fsm/example/characters/dim_spirits/SelectedZombieCharacter.tscn" id="2_23wuu"]
+[ext_resource type="Script" uid="uid://ycfa4mg5xosw" path="res://addons/fsm/example/characters/dim_spirits/states/FSMDummyState.gd" id="3_6018i"]
 [ext_resource type="PackedScene" uid="uid://cn4lpbv2l8rwe" path="res://addons/fsm/example/characters/dim_spirits/WeaponPickup.tscn" id="4_a05jo"]
 [ext_resource type="Script" uid="uid://bgad8cjq7jv38" path="res://addons/fsm/example/characters/roguelike/states/RLDash.gd" id="5_6018i"]
 

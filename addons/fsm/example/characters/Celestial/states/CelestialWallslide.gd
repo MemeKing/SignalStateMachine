@@ -1,7 +1,7 @@
-class_name JDWallslide
+class_name CelestialWallSlide
 extends FSMState
 
-var cooldown = 1
+var grav
 
 func _physics_process(delta: float) -> void:
 	var side = 0
@@ -9,8 +9,9 @@ func _physics_process(delta: float) -> void:
 		side = entity.get_last_slide_collision().get_normal().x
 	else:
 		revert()
+		
 	var v = entity.velocity
-	entity.velocity.x = -side
+	v.x = -side * 10
 	
 	if v.y > 0: 
 		v.y = move_toward(v.y,100,400*delta)
@@ -20,6 +21,11 @@ func _physics_process(delta: float) -> void:
 	if entity.is_on_floor():
 		revert()
 		return
+	
+	var direction = Input.get_axis("ui_left","ui_right")
+	if direction == side:
+		print("exited wallslide")
+		revert()
 
 	if Input.is_action_just_pressed("jump"):
 		v.x = 150 * sign(side)
@@ -30,7 +36,8 @@ func _physics_process(delta: float) -> void:
 		
 		if "dpad_nerf" in entity:
 			entity.dpad_nerf = 0
-			revert()
+		
+		revert()
 	
 	entity.velocity = v
 	entity.move_and_slide()
