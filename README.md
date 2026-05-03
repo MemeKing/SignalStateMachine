@@ -44,4 +44,4 @@ func _physics_process(_delta: float) -> void:
 
 Heartbeast for original idea https://www.youtube.com/watch?v=qwOM3v8T33Q
 
-pixel-boy for icon https://pixel-boy.itch.io/icon-godot-node
+Font Awesome for icon https://fontawesome.com
