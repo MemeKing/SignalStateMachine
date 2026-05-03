@@ -57,3 +57,5 @@ func _physics_process(_delta: float) -> void:
 Heartbeast for original idea https://www.youtube.com/watch?v=qwOM3v8T33Q
 
 Font Awesome for icon https://fontawesome.com
+
+Thalon for weapon sprite sheet https://opengameart.org/content/weapon-sprites
