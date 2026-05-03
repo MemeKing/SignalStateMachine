@@ -1,6 +1,14 @@
-# Epic State Machine
+# Signal State Machine
 
-This addon implements a finite state machine using signals between an fsm node and attachable state nodes. The design came from HeartBeast's tutorial on Finite State Machines, and the behavior does not differ very much. However there is an "FSMState" class and template, as well as a function to help link states.
+Finite state machine for Godot using signals between an fsm node and attachable state nodes.
+
+Full documentation is provided but please see the "example characters" for a quick-start and demonstration of how different genres can be achieved. Feel free to use these characters in your games if they suit your purposes well enough.
+
+Celestial: A platforming character that can dash and walljump. 
+
+ChosenZombie: Can equip different weapons that effect movement while attacking. 
+
+Please suggest more character types if you have ideas.
 
 ### Example Characterbody2D script using fsm
 
@@ -34,6 +42,6 @@ func _physics_process(_delta: float) -> void:
 
 ## Credits
 
-Heartbeast https://www.youtube.com/watch?v=qwOM3v8T33Q
+Heartbeast for original idea https://www.youtube.com/watch?v=qwOM3v8T33Q
 
 pixel-boy for icon https://pixel-boy.itch.io/icon-godot-node
