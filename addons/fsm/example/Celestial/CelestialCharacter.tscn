@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://cpeb8wnru2not"]
 
 [ext_resource type="Script" uid="uid://6v7nibywdm8r" path="res://addons/fsm/FiniteStateMachine.gd" id="1_sst55"]
-[ext_resource type="Script" uid="uid://b7v3gwost5rrf" path="res://addons/fsm/example/characters/Celestial/states/CelestialBasicState.gd" id="2_sst55"]
-[ext_resource type="Script" uid="uid://bgad8cjq7jv38" path="res://addons/fsm/example/characters/roguelike/states/RLDash.gd" id="3_bvmyo"]
-[ext_resource type="Script" uid="uid://bjwxvxuhexls4" path="res://addons/fsm/example/characters/Celestial/states/CelestialWallslide.gd" id="4_cbace"]
+[ext_resource type="Script" uid="uid://b7v3gwost5rrf" path="res://addons/fsm/example/Celestial/states/CelestialBasicState.gd" id="2_sst55"]
+[ext_resource type="Script" uid="uid://bgad8cjq7jv38" path="res://addons/fsm/example/Celestial/states/RLDash.gd" id="3_bvmyo"]
+[ext_resource type="Script" uid="uid://bjwxvxuhexls4" path="res://addons/fsm/example/Celestial/states/CelestialWallslide.gd" id="4_cbace"]
 
 [sub_resource type="GDScript" id="GDScript_f7ahu"]
 script/source = "extends CharacterBody2D
@@ -40,6 +40,7 @@ metadata/_custom_type_script = "uid://6v7nibywdm8r"
 
 [node name="CelestialBasicState" type="Node" parent="FiniteStateMachine" unique_id=1201255399]
 script = ExtResource("2_sst55")
+jump_speed = -300
 coyote_time_duration = 1.0
 metadata/_custom_type_script = "uid://b7v3gwost5rrf"
 

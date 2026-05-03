@@ -4,8 +4,10 @@ extends FSMState
 signal dashed
 signal started_wallslide
 signal attacked
+signal jumped
 
-@export var jump_speed = -200
+@export var jump_speed = 0
+@export var grav = 300
 @export var jump_buffer_duration = 0.3
 @export var coyote_time_duration = 0.3
 
@@ -28,7 +30,7 @@ func _process(delta: float) -> void:
 func _physics_process(delta: float) -> void:
 	var dpad_nerf = 1
 	var v = entity.velocity
-	var grav = entity.grav
+	#var grav = entity.grav
 	var grounded = entity.is_on_floor()
 	var direction = Input.get_axis("ui_left","ui_right")
 	
@@ -37,6 +39,11 @@ func _physics_process(delta: float) -> void:
 	if jump_buffer == clamp(jump_buffer,0.0001,0.3) and coyote_time > 0: 
 		v.y = jump_speed
 		coyote_time = 0
+		jumped.emit()
+		# The reason we apply jump_speed AND emit 'jumped' here is for maximum reusability in the example characters.
+		# In the Celestial character, this signal is not linked and is therefore ignored. 
+		# Other characters use the signal to transition to a special jump state, and leave this state's jump_speed at zero. 
+		# Real games probably don't need to go this far.
 	
 	v.y += grav * delta
 
@@ -51,7 +58,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		v.x = move_toward(v.x,0,(1000*delta)*dpad_nerf)
 	
-	if v.y > clamp(v.y,-300,300):
+	if not v.y in range(-600,600):
 		v.y = move_toward(v.y,0,100*delta)
 	
 	if entity.is_on_wall() and not entity.is_on_floor():

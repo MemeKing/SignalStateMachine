@@ -1,8 +1,8 @@
 class_name RLDashState
 extends FSMState
 
-@export var speed = 800
-@export var max_duration = 0.5
+@export var speed = 400
+@export var max_duration = 0.25
 @export var vertical_allowed = true
 @export var gravity = 0
 @export var cancel_on_floor = false

@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://dthmepx04mgst"]
 
-[ext_resource type="PackedScene" uid="uid://cpeb8wnru2not" path="res://addons/fsm/example/characters/Celestial/CelestialCharacter.tscn" id="2_cvbgm"]
+[ext_resource type="PackedScene" uid="uid://cpeb8wnru2not" path="res://addons/fsm/example/Celestial/CelestialCharacter.tscn" id="2_cvbgm"]
 
 [sub_resource type="Gradient" id="Gradient_n4mkd"]
 offsets = PackedFloat32Array(0, 0.31428573, 0.5619048, 1)

@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://73jtusfjkoxw"]
 
 [ext_resource type="Script" uid="uid://6v7nibywdm8r" path="res://addons/fsm/FiniteStateMachine.gd" id="1_h788a"]
-[ext_resource type="Script" uid="uid://bkagppqbc2amc" path="res://addons/fsm/example/characters/roguelike/states/RLFlippyJump.gd" id="1_r0tl6"]
-[ext_resource type="Script" uid="uid://b7v3gwost5rrf" path="res://addons/fsm/example/characters/Celestial/states/CelestialBasicState.gd" id="2_dgxt4"]
-[ext_resource type="Script" uid="uid://bgad8cjq7jv38" path="res://addons/fsm/example/characters/roguelike/states/RLDash.gd" id="3_vbjrg"]
+[ext_resource type="Script" uid="uid://bkagppqbc2amc" path="res://addons/fsm/example/SelectedZombie/states/RLFlippyJump.gd" id="1_r0tl6"]
+[ext_resource type="Script" uid="uid://b7v3gwost5rrf" path="res://addons/fsm/example/Celestial/states/CelestialBasicState.gd" id="2_dgxt4"]
+[ext_resource type="Script" uid="uid://bgad8cjq7jv38" path="res://addons/fsm/example/Celestial/states/RLDash.gd" id="3_vbjrg"]
 
 [sub_resource type="GDScript" id="GDScript_s8qxd"]
 script/source = "extends CharacterBody2D
@@ -60,17 +60,18 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_aby3g"]
 resource_name = "raise_above_head"
+length = 2.34
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/path = NodePath("Attack:position")
-tracks/0/interp = 2
+tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.3, 1.8, 2.0333333),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(0, 0), Vector2(0, -32)]
+"values": [Vector2(0, 0), Vector2(0, -32), Vector2(0, -32), Vector2(0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_m0u4u"]
@@ -98,6 +99,8 @@ metadata/_custom_type_script = "uid://6v7nibywdm8r"
 
 [node name="JDBasicState" type="Node" parent="SignalStateMachine" unique_id=233549265]
 script = ExtResource("2_dgxt4")
+jump_speed = -286
+grav = 578
 metadata/_custom_type_script = "uid://b7v3gwost5rrf"
 
 [node name="RLDashState" type="Node" parent="SignalStateMachine" unique_id=463546562]

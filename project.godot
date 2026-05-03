@@ -15,9 +15,8 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="Signal State Machine"
-run/main_scene="uid://vin63hfnmuvg"
+run/main_scene="uid://dthmepx04mgst"
 config/features=PackedStringArray("4.6", "Forward Plus")
-config/icon="uid://dhw1khl4s8wq6"
 
 [display]
 
