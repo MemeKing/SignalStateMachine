@@ -8,11 +8,17 @@ Full documentation is provided but please see the "example characters" for a qui
 
 These are still "in-progress" but they demonstrate the basics pretty well as they are.
 
-*Celestial*: A platforming character that can dash and walljump. 
+**Celestial**: A platforming character that can dash and walljump. 
 
-*ChosenZombie*: Can equip different weapons that effect movement while attacking. 
+**ChosenZombie**: Can equip different weapons that effect movement while attacking. 
 
 Please suggest more character types if you have ideas.
+
+#### Currently intended characters
+
+**Mergatroid**: Picks up items to unlock a power. Will use a preconfigured state tree and manage unlocks with link()
+
+**HitGuy**: Character that punches and kicks with combos
 
 ### Example Characterbody2D script using fsm
 
