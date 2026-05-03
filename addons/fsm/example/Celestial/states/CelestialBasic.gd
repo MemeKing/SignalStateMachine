@@ -13,7 +13,6 @@ signal jumped
 
 var jump_buffer = 0.0
 var coyote_time = 0.0
-var has_jumped = false
 
 func _process(delta: float) -> void:
 	if Input.is_action_pressed("jump"):
@@ -41,8 +40,7 @@ func _physics_process(delta: float) -> void:
 		coyote_time = 0
 		jumped.emit()
 		# The reason we apply jump_speed AND emit 'jumped' here is for maximum reusability in the example characters.
-		# In the Celestial character, this signal is not linked and is therefore ignored. 
-		# Other characters use the signal to transition to a special jump state, and leave this state's jump_speed at zero. 
+		# Leave jump_speed at 0 for no effect, ignore jumped signal for no effect.
 		# Real games probably don't need to go this far.
 	
 	v.y += grav * delta
@@ -50,21 +48,21 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_released("jump") and v.y < 0:
 		v.y = v.y/2
 	
-	if Input.is_action_just_pressed("attack"): 
-		attacked.emit()
+
 
 	if direction:
 		v.x = move_toward(v.x,direction*entity.speed,(1200*delta)*dpad_nerf)
 	else:
 		v.x = move_toward(v.x,0,(1000*delta)*dpad_nerf)
 	
-	if not v.y in range(-600,600):
+	if not v.y in range(-400,400):
 		v.y = move_toward(v.y,0,100*delta)
 	
 	if entity.is_on_wall() and not entity.is_on_floor():
 		started_wallslide.emit()
 	
 	if Input.is_action_just_pressed("dash"): dashed.emit()
+	if Input.is_action_just_pressed("attack"): attacked.emit()
 
 	entity.velocity = v
 	entity.move_and_slide()

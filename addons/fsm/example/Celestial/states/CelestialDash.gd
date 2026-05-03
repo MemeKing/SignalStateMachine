@@ -1,4 +1,4 @@
-class_name RLDashState
+class_name CelestialDashState
 extends FSMState
 
 @export var speed = 400
@@ -34,7 +34,7 @@ func _physics_process(delta: float) -> void:
 
 	entity.move_and_slide()
 
-	if entity.is_on_ceiling(): revert()
+	#if entity.is_on_ceiling(): revert()
 	if entity.is_on_wall(): revert()
 		
 	if cancel_on_floor:

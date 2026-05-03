@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://6v7nibywdm8r" path="res://addons/fsm/FiniteStateMachine.gd" id="1_h788a"]
 [ext_resource type="Script" uid="uid://bkagppqbc2amc" path="res://addons/fsm/example/SelectedZombie/states/RLFlippyJump.gd" id="1_r0tl6"]
-[ext_resource type="Script" uid="uid://b7v3gwost5rrf" path="res://addons/fsm/example/Celestial/states/CelestialBasicState.gd" id="2_dgxt4"]
-[ext_resource type="Script" uid="uid://bgad8cjq7jv38" path="res://addons/fsm/example/Celestial/states/RLDash.gd" id="3_vbjrg"]
+[ext_resource type="Script" uid="uid://b7v3gwost5rrf" path="res://addons/fsm/example/Celestial/states/CelestialBasic.gd" id="2_dgxt4"]
+[ext_resource type="Script" uid="uid://bgad8cjq7jv38" path="res://addons/fsm/example/Celestial/states/CelestialDash.gd" id="3_vbjrg"]
 
 [sub_resource type="GDScript" id="GDScript_s8qxd"]
 script/source = "extends CharacterBody2D
@@ -105,7 +105,7 @@ metadata/_custom_type_script = "uid://b7v3gwost5rrf"
 
 [node name="RLDashState" type="Node" parent="SignalStateMachine" unique_id=463546562]
 script = ExtResource("3_vbjrg")
-speed = 171
+speed = 254
 max_duration = 0.385
 vertical_allowed = false
 gravity = 25

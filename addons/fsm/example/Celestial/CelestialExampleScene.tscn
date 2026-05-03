@@ -32,3 +32,12 @@ tile_set = SubResource("TileSet_wd7ou")
 
 [node name="JumpAndDasher" parent="." unique_id=458612283 instance=ExtResource("2_cvbgm")]
 position = Vector2(414, 353)
+grav = 1037
+
+[node name="Label" type="Label" parent="." unique_id=1370355170]
+offset_left = 61.0
+offset_top = 60.0
+offset_right = 256.0
+offset_bottom = 135.0
+text = "Z: Jump
+X: Dash"

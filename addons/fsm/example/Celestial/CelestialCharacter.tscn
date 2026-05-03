@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://cpeb8wnru2not"]
 
 [ext_resource type="Script" uid="uid://6v7nibywdm8r" path="res://addons/fsm/FiniteStateMachine.gd" id="1_sst55"]
-[ext_resource type="Script" uid="uid://b7v3gwost5rrf" path="res://addons/fsm/example/Celestial/states/CelestialBasicState.gd" id="2_sst55"]
-[ext_resource type="Script" uid="uid://bgad8cjq7jv38" path="res://addons/fsm/example/Celestial/states/RLDash.gd" id="3_bvmyo"]
+[ext_resource type="Script" uid="uid://b7v3gwost5rrf" path="res://addons/fsm/example/Celestial/states/CelestialBasic.gd" id="2_sst55"]
+[ext_resource type="Script" uid="uid://bgad8cjq7jv38" path="res://addons/fsm/example/Celestial/states/CelestialDash.gd" id="3_bvmyo"]
 [ext_resource type="Script" uid="uid://bjwxvxuhexls4" path="res://addons/fsm/example/Celestial/states/CelestialWallslide.gd" id="4_cbace"]
 
 [sub_resource type="GDScript" id="GDScript_f7ahu"]
@@ -32,7 +32,7 @@ height = 38.0
 
 [node name="CelestialCharacter" type="CharacterBody2D" unique_id=458612283]
 script = SubResource("GDScript_f7ahu")
-jump_velocity = -200.0
+jump_velocity = -300.0
 
 [node name="FiniteStateMachine" type="Node" parent="." unique_id=1778254563]
 script = ExtResource("1_sst55")
@@ -41,13 +41,12 @@ metadata/_custom_type_script = "uid://6v7nibywdm8r"
 [node name="CelestialBasicState" type="Node" parent="FiniteStateMachine" unique_id=1201255399]
 script = ExtResource("2_sst55")
 jump_speed = -300
+grav = 600
 coyote_time_duration = 1.0
 metadata/_custom_type_script = "uid://b7v3gwost5rrf"
 
 [node name="RLDashState" type="Node" parent="FiniteStateMachine" unique_id=1157828230]
 script = ExtResource("3_bvmyo")
-speed = 250
-max_duration = 0.25
 metadata/_custom_type_script = "uid://bgad8cjq7jv38"
 
 [node name="CelestialWallSlide" type="Node" parent="FiniteStateMachine" unique_id=869192127]
