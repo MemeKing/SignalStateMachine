@@ -20,6 +20,8 @@ Please suggest more character types if you have ideas.
 
 **HitGuy**: Character that punches and kicks with combos
 
+**Shootman**: Has a gun which uses FSM as well.
+
 ### Example Characterbody2D script using fsm
 
 ```gd

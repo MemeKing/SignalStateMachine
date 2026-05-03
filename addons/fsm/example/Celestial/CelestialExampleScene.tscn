@@ -2,18 +2,18 @@
 
 [ext_resource type="PackedScene" uid="uid://cpeb8wnru2not" path="res://addons/fsm/example/Celestial/CelestialCharacter.tscn" id="2_cvbgm"]
 
-[sub_resource type="Gradient" id="Gradient_n4mkd"]
+[sub_resource type="Gradient" id="Gradient_wn770"]
 offsets = PackedFloat32Array(0, 0.31428573, 0.5619048, 1)
 colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1, 0.2037712, 0.38155112, 0.7897767, 1, 0.053316616, 0.19410801, 0.5519384, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_vnkhb"]
-gradient = SubResource("Gradient_n4mkd")
+gradient = SubResource("Gradient_wn770")
 width = 16
 height = 32
 fill_from = Vector2(0.5555556, 0.17521368)
 fill_to = Vector2(0.556213, 1)
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_c1twu"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qw7ou"]
 texture = SubResource("GradientTexture2D_vnkhb")
 0:0/0 = 0
 0:1/0 = 0
@@ -21,7 +21,7 @@ texture = SubResource("GradientTexture2D_vnkhb")
 
 [sub_resource type="TileSet" id="TileSet_wd7ou"]
 physics_layer_0/collision_layer = 1
-sources/0 = SubResource("TileSetAtlasSource_c1twu")
+sources/0 = SubResource("TileSetAtlasSource_qw7ou")
 
 [node name="CelestialExampleScene" type="Node2D" unique_id=1423619118]
 

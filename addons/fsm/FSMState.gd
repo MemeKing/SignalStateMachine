@@ -3,10 +3,10 @@ class_name FSMState extends Node
 ## Finite State Machine state node.
 ##
 ## A state represents one discrete behavior mode (e.g., Running, Dashing, Hurt). States are 
-## activated/deactivated by toggling their physics_process mode, which makes overlaps impossible. [br]
+## activated/deactivated by toggling their physics_process mode.[br]
+## States can be reused across different entities as long as the required properties exist. 
+## Enforcement of types is at the user's discrection.
 ## Note that _process() is NOT disabled by the fsm, and will run continuously. Useful for things like jump buffers.[br]
-## States can be reused across different entitys as long as the required properties exist. 
-## Enforcement of types is at the user's discrection. [br] 
 
 ## [br][br]
 ## Usage :[br]

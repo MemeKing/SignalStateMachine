@@ -13,7 +13,7 @@ class_name FiniteStateMachine extends Node
 ## The node/entity that this FSM controls. Defaults to the parent node. Can be any [Node] type, but accessing non-existent properties in [entity] will cause a crash. 
 @export var entity : Node
 
-## The state the fsm is currently in. For reference only. [br]Use [code]change_state(state)[/code] to force a state change.
+## The state the fsm is currently in. For reference only. Use [code]change_state()[/code] to force a state change.
 var current_state: FSMState
 
 
