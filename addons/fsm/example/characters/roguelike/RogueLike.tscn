@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://6v7nibywdm8r" path="res://addons/fsm/FiniteStateMachine.gd" id="1_jpuew"]
 [ext_resource type="Script" uid="uid://cfl2v6tnp6pi0" path="res://addons/fsm/example/characters/roguelike/states/RLBasicState.gd" id="2_y5h8j"]
-[ext_resource type="Texture2D" uid="uid://dd25mm0y3gu2r" path="res://icon.png" id="3_cf1ae"]
+[ext_resource type="Texture2D" uid="uid://dhw1khl4s8wq6" path="res://addons/fsm/icon.png" id="3_cf1ae"]
 
 [sub_resource type="GDScript" id="GDScript_y5h8j"]
 resource_name = "RogueLike"

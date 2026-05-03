@@ -1,4 +1,4 @@
-@icon("res://addons/fsm/icon.png")
+@icon("res://addons/fsm/microchip.svg")
 class_name FiniteStateMachine extends Node
 ## Node-based finite state machine using signals for transitions
 ##
