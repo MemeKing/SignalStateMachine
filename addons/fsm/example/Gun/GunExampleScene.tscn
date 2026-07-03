@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://ct51whxrmx0j6"]
+
+[ext_resource type="PackedScene" uid="uid://3agf6t6p8hpc" path="res://addons/fsm/example/Gun/GunEntity.tscn" id="1_04657"]
+[ext_resource type="PackedScene" uid="uid://clwnd0ftbltdv" path="res://addons/fsm/example/Gun/BulletExample.tscn" id="2_v5gys"]
+
+[sub_resource type="GDScript" id="GDScript_vmitb"]
+resource_name = "FPSLabel"
+script/source = "extends Label
+
+func _physics_process(delta: float) -> void:
+	text = str(Engine.get_frames_per_second())
+"
+
+[node name="GunExampleScene" type="Node2D" unique_id=771128640]
+
+[node name="GunEntity" parent="." unique_id=397321670 instance=ExtResource("1_04657")]
+position = Vector2(134, 322)
+bullet = ExtResource("2_v5gys")
+
+[node name="Polygon2D2" type="Polygon2D" parent="GunEntity" unique_id=1270431745]
+position = Vector2(-32, 17)
+polygon = PackedVector2Array(-48, -21, 31, -29, 29, -8, -24, -7, -26, 24, -58, 23)
+
+[node name="FPSLabel" type="Label" parent="." unique_id=72444451]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "FPS"
+script = SubResource("GDScript_vmitb")

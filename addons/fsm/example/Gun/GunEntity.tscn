@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://3agf6t6p8hpc"]
+
+[ext_resource type="Script" uid="uid://6v7nibywdm8r" path="res://addons/fsm/FiniteStateMachine.gd" id="1_jmttu"]
+
+[sub_resource type="GDScript" id="GDScript_04657"]
+resource_name = "GunEntity"
+script/source = "extends Node2D
+
+@export var bullet : PackedScene
+@export var instance_pool_size : int = 30
+@export var mag_size : int = -1
+var current_mag = mag_size
+
+var mag = Node2D.new()
+
+enum instance_exhaust_mode_types {
+	RECALL, # Despawn the oldest bullet
+	LIMIT,  # Don't fire again until slot is available (classic style)
+	FORCE, # Instance new bullets if none are available
+}
+
+@export var exhaust_mode : instance_exhaust_mode_types
+
+func _ready() -> void:
+	mag.visible = false
+	create_instance_pool()
+
+func get_available_bullets(amnt:int):
+	
+	pass
+
+func create_instance_pool():
+	if not bullet:
+		push_error(\"Gun has no bullet.\")
+		return
+
+	for i in range(1,instance_pool_size):
+		var new_bullet = bullet.instantiate()
+		new_bullet.top_level = true
+		mag.add_child(bullet.instantiate())
+"
+
+[node name="GunEntity" type="Node2D" unique_id=397321670]
+script = SubResource("GDScript_04657")
+
+[node name="FiniteStateMachine" type="Node" parent="." unique_id=2070115055]
+script = ExtResource("1_jmttu")
+metadata/_custom_type_script = "uid://6v7nibywdm8r"

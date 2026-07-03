@@ -48,7 +48,9 @@ func change_state(new_state: FSMState):
 
 
 func _ready() -> void:
-	get_parent().ready.connect(setup) 
+	if not entity:
+		entity = get_parent()
+	entity.ready.connect(setup) 
 
 
 ## Initialize children. Runs automatically but waits for entity's [ready] signal. If you add or remove states during gameplay you MUST run this again.
@@ -57,9 +59,8 @@ func setup():
 		entity = get_parent()
 
 	for child_state in get_children():
-		# Add dependency injection here if needed.
 		child_state.entity = entity
-		child_state.set_physics_process(false)
+		child_state.set_physics_process(false) # Doing this anywhere else is not reliable :(
 	
 	if current_state == null:
 		current_state = get_child(0)
