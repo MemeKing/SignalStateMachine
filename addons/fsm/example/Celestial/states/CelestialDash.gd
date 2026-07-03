@@ -31,11 +31,14 @@ func _physics_process(delta: float) -> void:
 	duration += delta
 	if duration >= max_duration:
 		revert()
-
+	
+	var yv = entity.velocity.y
 	entity.move_and_slide()
 
 	#if entity.is_on_ceiling(): revert()
-	if entity.is_on_wall(): revert()
+	if entity.is_on_wall(): 
+		entity.velocity.y = speed * sign(yv)
+		revert()
 		
 	if cancel_on_floor:
 		if entity.is_on_floor(): revert()

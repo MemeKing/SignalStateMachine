@@ -16,10 +16,14 @@ class_name FSMState extends Node
 ## 4. Reference [entity] for the controlled node [br] [br]
 ##
 ## Use [_enter_state] and [_exit_state] for setup and cleanup logic such as initializing variables, starting timers, or resetting values. [br][br]
-## 
-## Remember to have balance when creating states. Like in all things, highly complex behavior can 
-## arise from simplicity. But not every little movement  needs to be a state of it's own. 
-## Also, states don't need to be guaranteed to work on every possible entity that will ever exist. It's fine to have highly specialized states that only get used for one thing, such as the player.
+## [br]
+## TIPS:
+## - Remember to have balance when creating states. Like in all things, highly complex behavior can 
+## arise from simplicity. But not every little movement  needs to be a state of it's own. Also, states 
+## don't need to be guaranteed to work on every possible entity that will ever exist. It's fine to
+## have highly specialized states that only get used for one thing, such as the player.[br]
+## - Use [code]entity = entity as SomeType[/code] to get autocomplete for the intended type.
+## - When dealing with variables like "jump speed" you have many choices in where they should come from. The most flexible is for states to contain all their own variables. If these variables are exported, designers can tweak every aspect of the character's actions from the inspector. Alternatively, they can come from the entity,  
 
 ## The node this state controls. Reference this to affect the entity. Example: [code]entity.velocity.x = 0[/code]
 var entity : Node

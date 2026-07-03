@@ -1,5 +1,5 @@
-class_name CelestialBasicState
-extends FSMState
+class_name CelestialBasicState extends FSMState
+## Player Controller similar to "Celeste"
 
 signal dashed
 signal started_wallslide
@@ -14,16 +14,17 @@ signal jumped
 var jump_buffer = 0.0
 var coyote_time = 0.0
 
+
 func _process(delta: float) -> void:
 	if Input.is_action_pressed("jump"):
 		jump_buffer += delta
 	else:
 		jump_buffer = 0
 	
-	if not entity.is_on_floor():
-		coyote_time -= delta
-	else:
+	if entity.is_on_floor():
 		coyote_time = coyote_time_duration
+	else:
+		coyote_time -= delta
 
 
 func _physics_process(delta: float) -> void:
@@ -55,8 +56,8 @@ func _physics_process(delta: float) -> void:
 	else:
 		v.x = move_toward(v.x,0,(1000*delta)*dpad_nerf)
 	
-	if not v.y in range(-400,400):
-		v.y = move_toward(v.y,0,100*delta)
+	if not v.y in range(-600,600):
+		v.y = move_toward(v.y,0,150*delta)
 	
 	if entity.is_on_wall() and not entity.is_on_floor():
 		started_wallslide.emit()

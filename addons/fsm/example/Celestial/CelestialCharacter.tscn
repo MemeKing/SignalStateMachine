@@ -40,7 +40,7 @@ metadata/_custom_type_script = "uid://6v7nibywdm8r"
 
 [node name="CelestialBasicState" type="Node" parent="FiniteStateMachine" unique_id=1201255399]
 script = ExtResource("2_sst55")
-jump_speed = -300
+jump_speed = -400
 grav = 600
 coyote_time_duration = 1.0
 metadata/_custom_type_script = "uid://b7v3gwost5rrf"

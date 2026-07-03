@@ -23,4 +23,5 @@ func _physics_process(delta: float) -> void:
 	
 	entity.velocity = v
 	entity.move_and_slide()
+	
 	if entity.is_on_floor(): revert()
