@@ -9,6 +9,7 @@ script/source = "extends Node2D
 @export var bullet : PackedScene
 @export var instance_pool_size : int = 30
 @export var mag_size : int = -1
+
 var current_mag = mag_size
 
 var mag = Node2D.new()
