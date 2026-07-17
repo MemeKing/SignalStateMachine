@@ -15,9 +15,10 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="Signal State Machine"
+config/version="1.2"
 run/main_scene="uid://dthmepx04mgst"
 config/features=PackedStringArray("4.7", "Forward Plus")
-config/icon="uid://b1xo2ppeygmls"
+config/icon="uid://bhjcbfq4ysxaq"
 
 [display]
 
@@ -25,7 +26,7 @@ window/stretch/mode="canvas_items"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/log/plugin.cfg")
+enabled=PackedStringArray()
 
 [input]
 

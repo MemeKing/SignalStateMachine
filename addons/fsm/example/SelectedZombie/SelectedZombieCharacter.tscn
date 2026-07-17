@@ -1,40 +1,32 @@
 [gd_scene format=3 uid="uid://73jtusfjkoxw"]
 
 [ext_resource type="Script" uid="uid://6v7nibywdm8r" path="res://addons/fsm/FiniteStateMachine.gd" id="1_h788a"]
-[ext_resource type="Script" uid="uid://bkagppqbc2amc" path="res://addons/fsm/example/SelectedZombie/states/RLFlippyJump.gd" id="1_r0tl6"]
 [ext_resource type="Script" uid="uid://b7v3gwost5rrf" path="res://addons/fsm/example/Celestial/states/CelestialBasic.gd" id="2_dgxt4"]
 [ext_resource type="Script" uid="uid://bgad8cjq7jv38" path="res://addons/fsm/example/Celestial/states/CelestialDash.gd" id="3_vbjrg"]
+[ext_resource type="Script" uid="uid://ycfa4mg5xosw" path="res://addons/fsm/example/!misc_states/FSMDummyState.gd" id="4_2gmul"]
 
 [sub_resource type="GDScript" id="GDScript_s8qxd"]
 script/source = "extends CharacterBody2D
 
-@export var weapon_script : Script
-
-@onready var fsm = $SignalStateMachine
-@onready var basic = $SignalStateMachine/JDBasicState
-@onready var dash = $SignalStateMachine/RLDashState
+@onready var fsm = $FSM
+@export var basic_movement : FSMState
+@export var weapon_attack : FSMState
+@onready var dash = $FSM/RLDashState
 
 @onready var attack_shape = $Attack/CollisionShape2D
-
-var weapon_attack
-var speed = 120
-var jump_speed = -400.0
-var grav = 300
 
 
 func equip_weapon(wep : Script):
 	weapon_attack.free()
 	weapon_attack = wep.new()
 	fsm.add_child(weapon_attack)
-	fsm.unlink(basic,\"attacked\")
+	fsm.unlink(basic_movement.attacked)
 	fsm.setup()
-	fsm.link(basic,\"attacked\",weapon_attack)
+	fsm.link(basic_movement.attacked,weapon_attack)
 
 func _ready() -> void:
-	weapon_attack = weapon_script.new()
-	fsm.add_child(weapon_attack)
-	fsm.link(basic,\"dashed\",dash)
-	fsm.link(basic,\"attacked\",weapon_attack)
+	fsm.link(basic_movement.dashed,dash)
+	fsm.link(basic_movement.attacked,weapon_attack)
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0yb1r"]
@@ -80,9 +72,31 @@ _data = {
 &"raise_above_head": SubResource("Animation_aby3g")
 }
 
-[node name="SelectedZombie" type="CharacterBody2D" unique_id=181008636]
+[node name="SelectedZombie" type="CharacterBody2D" unique_id=181008636 node_paths=PackedStringArray("basic_movement", "weapon_attack")]
 script = SubResource("GDScript_s8qxd")
-weapon_script = ExtResource("1_r0tl6")
+basic_movement = NodePath("FSM/CelestialBasicState")
+weapon_attack = NodePath("FSM/FSMDummyState")
+
+[node name="FSM" type="Node" parent="." unique_id=5993107]
+script = ExtResource("1_h788a")
+metadata/_custom_type_script = "uid://6v7nibywdm8r"
+
+[node name="CelestialBasicState" type="Node" parent="FSM" unique_id=233549265]
+script = ExtResource("2_dgxt4")
+jump_speed = 271
+metadata/_custom_type_script = "uid://b7v3gwost5rrf"
+
+[node name="RLDashState" type="Node" parent="FSM" unique_id=463546562]
+script = ExtResource("3_vbjrg")
+speed = 254
+max_duration = 0.385
+vertical_allowed = false
+gravity = 25
+metadata/_custom_type_script = "uid://bgad8cjq7jv38"
+
+[node name="FSMDummyState" type="Node" parent="FSM" unique_id=1042428884]
+script = ExtResource("4_2gmul")
+metadata/_custom_type_script = "uid://ycfa4mg5xosw"
 
 [node name="Attack" type="Area2D" parent="." unique_id=769264332]
 
@@ -92,24 +106,6 @@ debug_color = Color(0.90588236, 0, 0.45490196, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=634171622]
 shape = SubResource("RectangleShape2D_3ylld")
-
-[node name="SignalStateMachine" type="Node" parent="." unique_id=5993107]
-script = ExtResource("1_h788a")
-metadata/_custom_type_script = "uid://6v7nibywdm8r"
-
-[node name="JDBasicState" type="Node" parent="SignalStateMachine" unique_id=233549265]
-script = ExtResource("2_dgxt4")
-jump_speed = -286
-grav = 578
-metadata/_custom_type_script = "uid://b7v3gwost5rrf"
-
-[node name="RLDashState" type="Node" parent="SignalStateMachine" unique_id=463546562]
-script = ExtResource("3_vbjrg")
-speed = 254
-max_duration = 0.385
-vertical_allowed = false
-gravity = 25
-metadata/_custom_type_script = "uid://bgad8cjq7jv38"
 
 [node name="Polygon2D" type="Polygon2D" parent="." unique_id=1623164506]
 color = Color(0.74693966, 0.07607218, 0.33204895, 1)

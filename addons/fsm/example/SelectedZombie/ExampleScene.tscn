@@ -1,7 +1,6 @@
 [gd_scene format=4 uid="uid://cwp0xpv5vxeif"]
 
 [ext_resource type="PackedScene" uid="uid://73jtusfjkoxw" path="res://addons/fsm/example/SelectedZombie/SelectedZombieCharacter.tscn" id="2_pgda2"]
-[ext_resource type="Script" uid="uid://ycfa4mg5xosw" path="res://addons/fsm/example/!misc_states/FSMDummyState.gd" id="3_s4xrj"]
 [ext_resource type="PackedScene" uid="uid://cn4lpbv2l8rwe" path="res://addons/fsm/example/SelectedZombie/WeaponPickup.tscn" id="4_gvllh"]
 [ext_resource type="Script" uid="uid://bgad8cjq7jv38" path="res://addons/fsm/example/Celestial/states/CelestialDash.gd" id="5_xhe24"]
 [ext_resource type="Script" uid="uid://chs6gsx2euj1r" path="res://addons/fsm/example/!misc_states/YesclipState.gd" id="6_y5x5p"]
@@ -36,7 +35,6 @@ tile_set = SubResource("TileSet_y4ldo")
 
 [node name="SelectedZombie" parent="." unique_id=181008636 instance=ExtResource("2_pgda2")]
 position = Vector2(495, 437)
-weapon_script = ExtResource("3_s4xrj")
 
 [node name="Area2D2" parent="." unique_id=1073593096 instance=ExtResource("4_gvllh")]
 position = Vector2(935, 481)

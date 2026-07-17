@@ -7,7 +7,12 @@ signal attacked
 signal jumped
 
 @export var jump_speed = 0
+@export var move_speed = 100
 @export var grav = 300
+@export var acceleration = 1000
+@export var friction = 1000
+@export var air_control = 1000
+@export var top_fall_speed = 100
 @export var jump_buffer_duration = 0.3
 @export var coyote_time_duration = 0.3
 
@@ -16,11 +21,9 @@ var coyote_time = 0.0
 
 
 func _process(delta: float) -> void:
-	if Input.is_action_pressed("jump"):
-		jump_buffer += delta
-	else:
-		jump_buffer = 0
-	
+	if Input.is_action_just_pressed("jump"):
+		jump_buffer = jump_buffer_duration
+
 	if entity.is_on_floor():
 		coyote_time = coyote_time_duration
 	else:
@@ -30,40 +33,44 @@ func _process(delta: float) -> void:
 func _physics_process(delta: float) -> void:
 	var dpad_nerf = 1
 	var v = entity.velocity
-	#var grav = entity.grav
 	var grounded = entity.is_on_floor()
 	var direction = Input.get_axis("ui_left","ui_right")
 	
 	if "dpad_nerf" in entity: dpad_nerf = entity.dpad_nerf
 
-	if jump_buffer == clamp(jump_buffer,0.0001,0.3) and coyote_time > 0: 
-		v.y = jump_speed
+	if jump_buffer > 0 and jump_buffer < jump_buffer_duration and coyote_time > 0: 
 		coyote_time = 0
+		v.y = -jump_speed
 		jumped.emit()
-		# The reason we apply jump_speed AND emit 'jumped' here is for maximum reusability in the example characters.
-		# Leave jump_speed at 0 for no effect, ignore jumped signal for no effect.
-		# Real games probably don't need to go this far.
 	
-	v.y += grav * delta
+	if not grounded:
+		v.y += grav * delta
 
 	if Input.is_action_just_released("jump") and v.y < 0:
 		v.y = v.y/2
 	
-
-
-	if direction:
-		v.x = move_toward(v.x,direction*entity.speed,(1200*delta)*dpad_nerf)
-	else:
-		v.x = move_toward(v.x,0,(1000*delta)*dpad_nerf)
+	if grounded:
+		if direction:
+			v.x = move_toward(v.x,direction*move_speed*dpad_nerf,acceleration*delta)
+			if sign(direction) != sign(v.x):
+				v.x = move_toward(v.x,direction*move_speed*dpad_nerf,acceleration*delta)
+		else:
+			v.x = move_toward(v.x,0,friction*delta)
 	
-	if not v.y in range(-600,600):
-		v.y = move_toward(v.y,0,150*delta)
+	if not grounded:
+		if direction:
+			v.x = move_toward(v.x,direction*move_speed*dpad_nerf,air_control*delta)
+	
+	if v.y > top_fall_speed:
+		v.y = top_fall_speed
 	
 	if entity.is_on_wall() and not entity.is_on_floor():
 		started_wallslide.emit()
 	
 	if Input.is_action_just_pressed("dash"): dashed.emit()
 	if Input.is_action_just_pressed("attack"): attacked.emit()
+	
+	jump_buffer -= delta
 
 	entity.velocity = v
 	entity.move_and_slide()

@@ -20,8 +20,8 @@ script/source = "extends CharacterBody2D
 var dpad_nerf = 1
 
 func _ready() -> void:
-	fsm.link(basic,\"dashed\",dash)
-	fsm.link(basic,\"started_wallslide\",wallslide)
+	fsm.link(basic.dashed,$FiniteStateMachine/RLDashState)
+	fsm.link(basic.started_wallslide,$FiniteStateMachine/CelestialWallSlide)
 
 func _physics_process(delta: float) -> void:
 	dpad_nerf = clamp(dpad_nerf+(delta/2),0,1)
@@ -40,8 +40,11 @@ metadata/_custom_type_script = "uid://6v7nibywdm8r"
 
 [node name="CelestialBasicState" type="Node" parent="FiniteStateMachine" unique_id=1201255399]
 script = ExtResource("2_sst55")
-jump_speed = -400
-grav = 600
+jump_speed = 303
+move_speed = 162
+grav = 249
+top_fall_speed = 191
+jump_buffer_duration = 0.05
 coyote_time_duration = 1.0
 metadata/_custom_type_script = "uid://b7v3gwost5rrf"
 
