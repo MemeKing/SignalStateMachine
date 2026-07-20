@@ -1,0 +1,5 @@
+General-purpose "finite state machine" using attachable nodes and signals. Suitable for 2D and 3D player controllers, enemy AI, guns, or whatever else.
+
+There are quite a few other fsm addons, many of them using the same "states are nodes" design as this one. However I've found the others too complex and rigid, limiting what can be done.
+
+Includes starter characters and states. Please check the github repo for the latest versions of these. Everything is included in the MIT license so use them how you wish. But please note that with the full power of godot available, I am still exploring the best practices and full abilities of this system myself so there may be drastic changes to those. The FSM itself and the state classes should not be changing though. 

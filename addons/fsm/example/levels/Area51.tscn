@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://d1ll4lsjojptl"]
 
 [ext_resource type="Script" uid="uid://b7v3gwost5rrf" path="res://addons/fsm/example/state_scripts/celestial_states/CelestialBasic.gd" id="1_x1o4s"]
-[ext_resource type="Texture2D" uid="uid://bhjcbfq4ysxaq" path="res://alien.png" id="2_tgisj"]
+[ext_resource type="Texture2D" uid="uid://bhjcbfq4ysxaq" path="res://images/alien.png" id="2_tgisj"]
 
 [sub_resource type="Gradient" id="Gradient_mipha"]
 offsets = PackedFloat32Array(0, 0.31428573, 0.5619048, 1)

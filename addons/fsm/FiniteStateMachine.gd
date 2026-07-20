@@ -15,13 +15,13 @@ var current_state: FSMState          ## The state that is currently active. Use 
 var connections : Dictionary = {}    ## Dictionary storing connections from [method link]. 
 
 ## Link a state's exit signal to another state, causing a transition every time the signal is received.
-func link(exit_signal: Signal, target_state: FSMState) -> void:
+func link_add(exit_signal: Signal, target_state: FSMState) -> void:
 	var transition_callable = Callable(self, "change_state").bind(target_state)
 	connections[exit_signal] = transition_callable
 	exit_signal.connect(transition_callable)
 
 ## Unlink a signal that was previously linked. 
-func unlink(exit_signal: Signal) -> void:
+func link_remove(exit_signal: Signal) -> void:
 	if connections.has(exit_signal):
 		exit_signal.disconnect(connections[exit_signal])
 		connections.erase(exit_signal)
@@ -30,11 +30,6 @@ func unlink(exit_signal: Signal) -> void:
 ## Runs when [member entity] has emitted it's [member Node.ready] signal, meaning all it's child nodes are ready. [method setup] will still run automatically if you override this.
 func _deferred_ready() -> void: 
 	pass
-
-
-## Transition the FSM back to [member default_state].
-func revert() -> void:
-	change_state(default_state)
 
 
 ## Queue a transition to [code]new_state[/code] for the end of the frame.
@@ -52,6 +47,7 @@ func change_state_now(new_state: FSMState) -> void:
 	current_state = new_state
 	current_state._enter_state()
 	current_state.set_physics_process(true)
+	#current_state.set_process(true)
 
 
 ## Initialize the FSM. Runs automatically at start, and with [method deploy_state], but you may need 
@@ -63,6 +59,7 @@ func setup() -> void:
 		state.entity = entity
 		state.fsm = self
 		state.set_physics_process(false)
+		#state.set_process(false)
 	if not default_state:
 		default_state = child_states[0]
 
@@ -80,7 +77,7 @@ func delete_state(state: FSMState) -> void:
 		if sig.get_object() == state:
 			to_remove.append(sig)
 	for bad_signal in to_remove:
-		unlink(bad_signal)
+		link_remove(bad_signal)
 
 
 func _notification(id: int) -> void:

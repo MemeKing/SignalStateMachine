@@ -30,8 +30,8 @@ func _physics_process(delta: float) -> void:
 	entity.velocity.y += gravity
 	duration += delta
 	if duration >= max_duration:
-		revert()
-	
+		fsm.change_state(fsm.default_state)
+
 	var yv = entity.velocity.y
 	entity.move_and_slide()
 
