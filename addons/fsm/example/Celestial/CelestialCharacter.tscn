@@ -1,63 +1,63 @@
 [gd_scene format=3 uid="uid://cpeb8wnru2not"]
 
-[ext_resource type="Script" uid="uid://6v7nibywdm8r" path="res://addons/fsm/FiniteStateMachine.gd" id="1_sst55"]
 [ext_resource type="Script" uid="uid://b7v3gwost5rrf" path="res://addons/fsm/example/Celestial/states/CelestialBasic.gd" id="2_sst55"]
 [ext_resource type="Script" uid="uid://bgad8cjq7jv38" path="res://addons/fsm/example/Celestial/states/CelestialDash.gd" id="3_bvmyo"]
 [ext_resource type="Script" uid="uid://bjwxvxuhexls4" path="res://addons/fsm/example/Celestial/states/CelestialWallslide.gd" id="4_cbace"]
 
 [sub_resource type="GDScript" id="GDScript_f7ahu"]
 script/source = "extends CharacterBody2D
-
-@export var speed = 150
-@export var jump_velocity = -400.0
-@export var grav = 300
-
-@onready var fsm = $FiniteStateMachine
-@onready var basic = $FiniteStateMachine/CelestialBasicState
-@onready var dash = $FiniteStateMachine/RLDashState
-@onready var wallslide = $FiniteStateMachine/CelestialWallSlide
-
-var dpad_nerf = 1
-
-func _ready() -> void:
-	fsm.link(basic.dashed,$FiniteStateMachine/RLDashState)
-	fsm.link(basic.started_wallslide,$FiniteStateMachine/CelestialWallSlide)
-
-func _physics_process(delta: float) -> void:
-	dpad_nerf = clamp(dpad_nerf+(delta/2),0,1)
 "
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_l2ngy"]
-height = 38.0
+[sub_resource type="GDScript" id="GDScript_gimfh"]
+resource_name = "Celestial"
+script/source = "extends FiniteStateMachine
+
+@export var jump_velocity = 400
+
+var jump_buffer = 0.0
+var grounded = false
+var dpad_nerf = 1.0
+
+func _deferred_ready() -> void:
+	link($CelestialBasicState.dashed,$RLDashState)
+	link($CelestialBasicState.started_wallslide,$CelestialWallSlide)
+
+func _process(delta: float) -> void:
+	dpad_nerf = move_toward(dpad_nerf,1.0,delta/2)
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gimfh"]
+size = Vector2(20, 35)
 
 [node name="CelestialCharacter" type="CharacterBody2D" unique_id=458612283]
 script = SubResource("GDScript_f7ahu")
-jump_velocity = -300.0
 
 [node name="FiniteStateMachine" type="Node" parent="." unique_id=1778254563]
-script = ExtResource("1_sst55")
+script = SubResource("GDScript_gimfh")
 metadata/_custom_type_script = "uid://6v7nibywdm8r"
 
 [node name="CelestialBasicState" type="Node" parent="FiniteStateMachine" unique_id=1201255399]
 script = ExtResource("2_sst55")
-jump_speed = 303
-move_speed = 162
-grav = 249
-top_fall_speed = 191
-jump_buffer_duration = 0.05
-coyote_time_duration = 1.0
+friction = 3000
+air_friction = 800
+air_control = 0.5
 metadata/_custom_type_script = "uid://b7v3gwost5rrf"
 
 [node name="RLDashState" type="Node" parent="FiniteStateMachine" unique_id=1157828230]
 script = ExtResource("3_bvmyo")
 metadata/_custom_type_script = "uid://bgad8cjq7jv38"
 
+[node name="SomeJunkNotMeantToBeHere" type="Sprite2D" parent="FiniteStateMachine" unique_id=325359360]
+
 [node name="CelestialWallSlide" type="Node" parent="FiniteStateMachine" unique_id=869192127]
 script = ExtResource("4_cbace")
+jump_speed = 390.0
+grav = 300.0
 metadata/_custom_type_script = "uid://bjwxvxuhexls4"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=260227991]
-shape = SubResource("CapsuleShape2D_l2ngy")
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_gimfh")
 
 [node name="Polygon2D" type="Polygon2D" parent="." unique_id=1057663039]
 color = Color(0.74693966, 0.07607218, 0.33204895, 1)

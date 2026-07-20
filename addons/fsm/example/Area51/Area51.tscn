@@ -40,7 +40,6 @@ position = Vector2(144, 241)
 [node name="CelestialBasicState" type="Node" parent="CharacterBody2D" unique_id=729272348]
 script = ExtResource("1_x1o4s")
 jump_speed = 315
-speed = 209
 grav = 279
 metadata/_custom_type_script = "uid://b7v3gwost5rrf"
 

@@ -35,6 +35,11 @@ func revert() -> void:
 	if fsm:
 		fsm.revert()
 
+func fsm_has_value(val:String) -> bool:
+	if fsm and val in fsm:
+		return true
+	else:
+		return false
 
 func _notification(id: int) -> void:
 	match id:

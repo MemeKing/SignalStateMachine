@@ -32,8 +32,6 @@ tile_set = SubResource("TileSet_wd7ou")
 
 [node name="JumpAndDasher" parent="." unique_id=458612283 instance=ExtResource("2_cvbgm")]
 position = Vector2(414, 353)
-jump_velocity = 300.0
-grav = 244
 
 [node name="Label" type="Label" parent="." unique_id=1370355170]
 offset_left = 61.0
