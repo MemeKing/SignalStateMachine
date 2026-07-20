@@ -21,7 +21,7 @@ func _physics_process(delta: float) -> void:
 
 	var direction = Input.get_axis("ui_left","ui_right")
 	#v.x = move_toward(v.x,direction,100*delta)
-	v.x = clamp(v.x,-entity.speed,entity.speed)
+	#v.x = clamp(v.x,-entity.speed,entity.speed)
 	v.y += grav * delta
 
 	entity.velocity = v

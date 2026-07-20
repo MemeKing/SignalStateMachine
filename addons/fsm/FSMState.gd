@@ -4,7 +4,7 @@ class_name FSMState extends Node
 ##
 ## A state represents one discrete behavior mode (e.g., Running, Dashing, Hurt). States are activated
 ## and deactivated by toggling their physics_process mode. States can be reused across different 
-## entities as long as the required members and methods exist. Enforcement of types is at the user's 
+## entities provided the required members exist. Enforcement of types is at the user's 
 ## discrection. [br]
 ## Note that _process() is NOT disabled by the fsm, and will run continuously. Useful for things like input buffers.[br]
 ## [br]
@@ -32,9 +32,9 @@ func _exit_state() -> void: pass
 
 ## Exit from this state back to default state.
 func revert() -> void:
-	if fsm:
-		fsm.revert()
+	if fsm: fsm.revert()
 
+## Check if an FSM-wide value exists or not. Alternatively, use [code]entity.value[/code].
 func fsm_has_value(val:String) -> bool:
 	if fsm and val in fsm:
 		return true
@@ -43,9 +43,11 @@ func fsm_has_value(val:String) -> bool:
 
 func _notification(id: int) -> void:
 	match id:
-		NOTIFICATION_READY:
-			if not entity:
-				entity = get_parent() # Will be overriden by FSM node if it exists.
-		
+		NOTIFICATION_ENTER_TREE:
+			if not entity and get_parent() is not FiniteStateMachine:
+				entity = get_parent() 
+			else:
+				set_physics_process(false)
+
 		NOTIFICATION_PREDELETE:
 			_exit_state()

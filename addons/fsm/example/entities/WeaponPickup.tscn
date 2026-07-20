@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cn4lpbv2l8rwe"]
 
-[ext_resource type="Script" uid="uid://bkagppqbc2amc" path="res://addons/fsm/example/SelectedZombie/states/RLFlippyJump.gd" id="1_6cn4r"]
-[ext_resource type="Texture2D" uid="uid://bctct2omvaprf" path="res://addons/fsm/example/SelectedZombie/ThalonWeaponSpritesheet.png" id="2_bmvjk"]
+[ext_resource type="Script" uid="uid://bkagppqbc2amc" path="res://addons/fsm/example/state_scripts/RLFlippyJump.gd" id="1_6cn4r"]
+[ext_resource type="Texture2D" uid="uid://bctct2omvaprf" path="res://addons/fsm/example/art_assets/ThalonWeaponSpritesheet.png" id="2_bmvjk"]
 
 [sub_resource type="GDScript" id="GDScript_23wuu"]
 resource_name = "WeaponPickup"

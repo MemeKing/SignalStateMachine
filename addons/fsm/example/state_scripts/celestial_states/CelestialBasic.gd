@@ -4,6 +4,7 @@ signal dashed
 signal started_wallslide
 signal attacked
 signal jumped
+signal double_jumped
 
 @export var jump_speed = 390
 @export var move_speed = 250
@@ -33,14 +34,17 @@ func _physics_process(delta: float) -> void:
 	var v = entity.velocity
 	var direction = Input.get_axis("ui_left","ui_right")
 	
-	if fsm and "dpad_nerf" in fsm:
+	if fsm_has_value("dpad_nerf"):
 		dpad_nerf = fsm.dpad_nerf
 
 	if jump_buffer > 0 and coyote_time > 0: 
 		coyote_time = 0
-		fsm.jump_buffer = 0
 		v.y = -jump_speed
 		jumped.emit()
+		jump_buffer = 0
+		if fsm_has_value("jump_buffer"):
+			fsm.jump_buffer = 0
+		
 
 	if not grounded:
 		v.y += grav * delta
@@ -59,6 +63,9 @@ func _physics_process(delta: float) -> void:
 			v.x = move_toward(v.x,direction*move_speed,acceleration*air_control*delta*dpad_nerf)
 		else:
 			v.x = move_toward(v.x,0.0,air_friction*delta*dpad_nerf)
+	
+	if not grounded and jump_buffer > 0:
+		double_jumped.emit()
 	
 	if v.y > top_fall_speed:
 		v.y = top_fall_speed

@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://73jtusfjkoxw"]
 
 [ext_resource type="Script" uid="uid://6v7nibywdm8r" path="res://addons/fsm/FiniteStateMachine.gd" id="1_h788a"]
-[ext_resource type="Script" uid="uid://b7v3gwost5rrf" path="res://addons/fsm/example/Celestial/states/CelestialBasic.gd" id="2_dgxt4"]
-[ext_resource type="Script" uid="uid://bgad8cjq7jv38" path="res://addons/fsm/example/Celestial/states/CelestialDash.gd" id="3_vbjrg"]
-[ext_resource type="Script" uid="uid://ycfa4mg5xosw" path="res://addons/fsm/example/!misc_states/FSMDummyState.gd" id="4_2gmul"]
+[ext_resource type="Script" uid="uid://b7v3gwost5rrf" path="res://addons/fsm/example/state_scripts/celestial_states/CelestialBasic.gd" id="2_dgxt4"]
+[ext_resource type="Script" uid="uid://bgad8cjq7jv38" path="res://addons/fsm/example/state_scripts/celestial_states/CelestialDash.gd" id="3_vbjrg"]
+[ext_resource type="Script" uid="uid://ycfa4mg5xosw" path="res://addons/fsm/example/state_scripts/misc/FSMDummyState.gd" id="4_2gmul"]
 
 [sub_resource type="GDScript" id="GDScript_s8qxd"]
 script/source = "extends CharacterBody2D
@@ -17,12 +17,13 @@ script/source = "extends CharacterBody2D
 
 
 func equip_weapon(wep : Script):
-	weapon_attack.free()
+	fsm.revert()
+	weapon_attack.queue_free()
 	weapon_attack = wep.new()
-	fsm.add_child(weapon_attack)
+	fsm.deploy_state(weapon_attack)
 	fsm.unlink(basic_movement.attacked)
-	fsm.setup()
 	fsm.link(basic_movement.attacked,weapon_attack)
+	
 
 func _ready() -> void:
 	fsm.link(basic_movement.dashed,dash)

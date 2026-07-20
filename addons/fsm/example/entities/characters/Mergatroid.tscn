@@ -1,0 +1,192 @@
+[gd_scene format=3 uid="uid://cma5ghwjq626"]
+
+[ext_resource type="Script" uid="uid://6v7nibywdm8r" path="res://addons/fsm/FiniteStateMachine.gd" id="1_44hbh"]
+[ext_resource type="Script" uid="uid://b7v3gwost5rrf" path="res://addons/fsm/example/state_scripts/celestial_states/CelestialBasic.gd" id="2_kialg"]
+[ext_resource type="Texture2D" uid="uid://bb08qq2esww6b" path="res://addons/fsm/example/art_assets/platformer_sprites_base.png" id="2_tt0if"]
+[ext_resource type="Script" uid="uid://bgad8cjq7jv38" path="res://addons/fsm/example/state_scripts/celestial_states/CelestialDash.gd" id="3_r6e0m"]
+[ext_resource type="Script" uid="uid://bjwxvxuhexls4" path="res://addons/fsm/example/state_scripts/celestial_states/CelestialWallslide.gd" id="4_qbmfk"]
+[ext_resource type="Script" uid="uid://bkagppqbc2amc" path="res://addons/fsm/example/state_scripts/RLFlippyJump.gd" id="5_gk1i4"]
+
+[sub_resource type="GDScript" id="GDScript_ddsxs"]
+resource_name = "MergatroidCharacter"
+script/source = "extends CharacterBody2D
+
+@onready var fsm = $FiniteStateMachine
+
+func _ready() -> void:
+	fsm.link($FiniteStateMachine/CelestialBasicState.double_jumped,$FiniteStateMachine/RLFlippyJump)
+"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ldv2g"]
+atlas = ExtResource("2_tt0if")
+region = Rect2(128, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wbt00"]
+atlas = ExtResource("2_tt0if")
+region = Rect2(192, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kialg"]
+atlas = ExtResource("2_tt0if")
+region = Rect2(256, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r6e0m"]
+atlas = ExtResource("2_tt0if")
+region = Rect2(320, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qbmfk"]
+atlas = ExtResource("2_tt0if")
+region = Rect2(384, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gk1i4"]
+atlas = ExtResource("2_tt0if")
+region = Rect2(448, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wmxqj"]
+atlas = ExtResource("2_tt0if")
+region = Rect2(0, 512, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2dvem"]
+atlas = ExtResource("2_tt0if")
+region = Rect2(0, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kcrq4"]
+atlas = ExtResource("2_tt0if")
+region = Rect2(64, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5eaoy"]
+atlas = ExtResource("2_tt0if")
+region = Rect2(128, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ujy6r"]
+atlas = ExtResource("2_tt0if")
+region = Rect2(192, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lq7wu"]
+atlas = ExtResource("2_tt0if")
+region = Rect2(256, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6uxn6"]
+atlas = ExtResource("2_tt0if")
+region = Rect2(320, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a7gxr"]
+atlas = ExtResource("2_tt0if")
+region = Rect2(384, 256, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aqrtc"]
+atlas = ExtResource("2_tt0if")
+region = Rect2(448, 256, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vmitb"]
+animations = [{
+"frames": [],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ldv2g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wbt00")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kialg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r6e0m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qbmfk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gk1i4")
+}],
+"loop": 0,
+"name": &"new_animation",
+"speed": 9.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wmxqj")
+}],
+"loop": 1,
+"name": &"standing",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2dvem")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kcrq4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5eaoy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ujy6r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lq7wu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6uxn6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a7gxr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aqrtc")
+}],
+"loop": 1,
+"name": &"walk",
+"speed": 9.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vmitb"]
+size = Vector2(20, 33)
+
+[node name="MergatroidCharacter" type="CharacterBody2D" unique_id=1890808486]
+script = SubResource("GDScript_ddsxs")
+
+[node name="FiniteStateMachine" type="Node" parent="." unique_id=1430257291]
+script = ExtResource("1_44hbh")
+metadata/_custom_type_script = "uid://6v7nibywdm8r"
+
+[node name="CelestialBasicState" type="Node" parent="FiniteStateMachine" unique_id=1427690087]
+script = ExtResource("2_kialg")
+jump_speed = 301
+metadata/_custom_type_script = "uid://b7v3gwost5rrf"
+
+[node name="CelestialDashState" type="Node" parent="FiniteStateMachine" unique_id=96065505]
+script = ExtResource("3_r6e0m")
+metadata/_custom_type_script = "uid://bgad8cjq7jv38"
+
+[node name="CelestialWallSlide" type="Node" parent="FiniteStateMachine" unique_id=331921531]
+script = ExtResource("4_qbmfk")
+metadata/_custom_type_script = "uid://bjwxvxuhexls4"
+
+[node name="RLFlippyJump" type="Node" parent="FiniteStateMachine" unique_id=1338024086]
+script = ExtResource("5_gk1i4")
+metadata/_custom_type_script = "uid://bkagppqbc2amc"
+
+[node name="Polygon2D" type="Polygon2D" parent="." unique_id=421138599]
+visible = false
+color = Color(0.74693966, 0.07607218, 0.33204895, 1)
+polygon = PackedVector2Array(-10, -17, -10, 17, -5, 17, -3, 7, 3, 7, 5, 17, 10, 17, 10, -18)
+
+[node name="Polygon2D" type="Polygon2D" parent="Polygon2D" unique_id=221669810]
+polygon = PackedVector2Array(-6, -12, -7, -6, 7, -7, 4, -14)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2017424515]
+texture_filter = 1
+position = Vector2(0, -7)
+scale = Vector2(0.795, 0.795)
+sprite_frames = SubResource("SpriteFrames_vmitb")
+animation = &"standing"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=958397632]
+position = Vector2(0, 2.5)
+shape = SubResource("RectangleShape2D_vmitb")

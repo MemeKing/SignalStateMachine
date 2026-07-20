@@ -56,6 +56,8 @@ func _physics_process(_delta: float) -> void:
 
 Heartbeast for original idea https://www.youtube.com/watch?v=qwOM3v8T33Q
 
-Font Awesome for icon https://fontawesome.com
+Node icons by Voxy from @icons https://store.godotengine.org/asset/voxy/at-icons/
 
-Thalon for weapon sprite sheet https://opengameart.org/content/weapon-sprites
+Platformer Animations by Clint Bellanger https://opengameart.org/content/platformer-animations
+
+Weapon Sprite Sheet by Thalon https://opengameart.org/content/weapon-sprites

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bctct2omvaprf"
-path="res://.godot/imported/ThalonWeaponSpritesheet.png-dcce6c68be2c0c835f5b48b56a80a19a.ctex"
+uid="uid://bb08qq2esww6b"
+path="res://.godot/imported/platformer_sprites_base.png-78a2a501d8dd96187dcb68d79269e79e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/fsm/example/SelectedZombie/ThalonWeaponSpritesheet.png"
-dest_files=["res://.godot/imported/ThalonWeaponSpritesheet.png-dcce6c68be2c0c835f5b48b56a80a19a.ctex"]
+source_file="res://addons/fsm/example/art_assets/platformer_sprites_base.png"
+dest_files=["res://.godot/imported/platformer_sprites_base.png-78a2a501d8dd96187dcb68d79269e79e.ctex"]
 
 [params]
 
