@@ -16,18 +16,17 @@ script/source = "extends CharacterBody2D
 @onready var attack_shape = $Attack/CollisionShape2D
 
 
-func equip_weapon(wep : Script):
-	fsm.revert()
-	weapon_attack.queue_free()
-	weapon_attack = wep.new()
-	fsm.deploy_state(weapon_attack)
-	fsm.unlink(basic_movement.attacked)
-	fsm.link(basic_movement.attacked,weapon_attack)
+func equip_weapon(wep : FSMState):
+	fsm.delete_state(weapon_attack)
+	fsm.deploy_state(wep)
+	weapon_attack = wep
+	fsm.link_add(basic_movement.attacked,weapon_attack)
+	#fsm.change_state(basic_movement)
 	
 
 func _ready() -> void:
-	fsm.link(basic_movement.dashed,dash)
-	fsm.link(basic_movement.attacked,weapon_attack)
+	fsm.link_add(basic_movement.dashed,dash)
+	fsm.link_add(basic_movement.attacked,weapon_attack)
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0yb1r"]

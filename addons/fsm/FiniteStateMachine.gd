@@ -1,4 +1,4 @@
-@icon("res://addons/fsm/icons/cpu.svg")
+@icon("res://addons/fsm/cpu.svg")
 class_name FiniteStateMachine extends Node
 ## Node-based finite state machine using signals
 ##
@@ -17,8 +17,11 @@ var connections : Dictionary = {}    ## Dictionary storing connections from [met
 ## Link a state's exit signal to another state, causing a transition every time the signal is received.
 func link_add(exit_signal: Signal, target_state: FSMState) -> void:
 	var transition_callable = Callable(self, "change_state").bind(target_state)
+	if connections.has(exit_signal):
+		link_remove(exit_signal)
 	connections[exit_signal] = transition_callable
 	exit_signal.connect(transition_callable)
+
 
 ## Unlink a signal that was previously linked. 
 func link_remove(exit_signal: Signal) -> void:
@@ -66,13 +69,20 @@ func setup() -> void:
 
 ## Give this FSM a new state during gameplay. FSM will add new_state to children and run initialization.
 func deploy_state(state: FSMState) -> void:
-	add_child(state)
+	if state.owner:
+		state.reparent(self)
+	else:
+		add_child(state)
 	setup()
+	current_state.set_physics_process(true)
+
 
 ## Remove a state and all it's connections.
 func delete_state(state: FSMState) -> void:
-	state.queue_free()
 	var to_remove: Array[Signal] = []
+	state.queue_free()
+	if state == current_state:
+		change_state(default_state)
 	for sig: Signal in connections.keys():
 		if sig.get_object() == state:
 			to_remove.append(sig)

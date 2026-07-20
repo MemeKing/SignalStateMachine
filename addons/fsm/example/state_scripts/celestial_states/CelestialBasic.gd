@@ -19,6 +19,8 @@ var jump_buffer = 0.0
 var coyote_time = 0.0
 var grounded = false
 
+func _enter_state() -> void:
+	print("Entering celestial basic")
 
 func _process(delta: float) -> void:
 	jump_buffer = move_toward(jump_buffer,0.0,delta)
@@ -29,6 +31,8 @@ func _process(delta: float) -> void:
 	if entity.is_on_floor():
 		coyote_time = 0.03
 
+func _exit_state() -> void:
+	print("Leaving celestial basic")
 
 func _physics_process(delta: float) -> void:
 	var v = entity.velocity

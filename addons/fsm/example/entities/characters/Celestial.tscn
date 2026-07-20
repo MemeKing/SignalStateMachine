@@ -15,8 +15,8 @@ var grounded = false
 var dpad_nerf = 1.0
 
 func _deferred_ready() -> void:
-	link($CelestialBasicState.dashed,$RLDashState)
-	link($CelestialBasicState.started_wallslide,$CelestialWallSlide)
+	link_add($CelestialBasicState.dashed,$RLDashState)
+	link_add($CelestialBasicState.started_wallslide,$CelestialWallSlide)
 
 func _process(delta: float) -> void:
 	dpad_nerf = move_toward(dpad_nerf,1.0,delta/2)

@@ -3,7 +3,6 @@
 [ext_resource type="PackedScene" uid="uid://73jtusfjkoxw" path="res://addons/fsm/example/entities/characters/SelectedZombie.tscn" id="1_ycvnt"]
 [ext_resource type="PackedScene" uid="uid://cn4lpbv2l8rwe" path="res://addons/fsm/example/entities/WeaponPickup.tscn" id="2_cnfi2"]
 [ext_resource type="Script" uid="uid://bgad8cjq7jv38" path="res://addons/fsm/example/state_scripts/celestial_states/CelestialDash.gd" id="3_ypd7o"]
-[ext_resource type="Script" uid="uid://chs6gsx2euj1r" path="res://addons/fsm/example/state_scripts/misc/YesclipState.gd" id="4_yvb3c"]
 
 [sub_resource type="Gradient" id="Gradient_wn770"]
 offsets = PackedFloat32Array(0, 0.31428573, 0.5619048, 1)
@@ -26,6 +25,14 @@ texture = SubResource("GradientTexture2D_vnkhb")
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_y5x5p")
 
+[sub_resource type="GDScript" id="GDScript_vmitb"]
+resource_name = "FPSLabel"
+script/source = "extends Label
+
+func _process(delta: float) -> void:
+	text = str(Engine.get_frames_per_second())
+"
+
 [node name="DimSpiritsExample" type="Node2D" unique_id=1423619118]
 
 [node name="TileMapLayer2" type="TileMapLayer" parent="." unique_id=1243255810]
@@ -36,9 +43,9 @@ tile_set = SubResource("TileSet_y4ldo")
 [node name="SelectedZombie" parent="." unique_id=181008636 instance=ExtResource("1_ycvnt")]
 position = Vector2(495, 437)
 
-[node name="Area2D2" parent="." unique_id=1073593096 instance=ExtResource("2_cnfi2")]
-position = Vector2(935, 481)
-weapon_script = ExtResource("3_ypd7o")
+[node name="DashDaggerPickup" parent="." unique_id=1073593096 instance=ExtResource("2_cnfi2")]
+position = Vector2(390, 451)
+weapon = ExtResource("3_ypd7o")
 weapon_name = "DashDagger"
 
 [node name="Area2D" parent="." unique_id=561669944 instance=ExtResource("2_cnfi2")]
@@ -47,7 +54,6 @@ weapon_name = "Flip Sword"
 
 [node name="WeaponPickup" parent="." unique_id=62340678 instance=ExtResource("2_cnfi2")]
 position = Vector2(241, 462)
-weapon_script = ExtResource("4_yvb3c")
 weapon_name = "Ring Of Enchantment"
 
 [node name="Label" type="Label" parent="." unique_id=428358496]
@@ -58,3 +64,9 @@ offset_bottom = 135.0
 text = "Z: Jump
 X: Dodge
 C: Use weapon"
+
+[node name="Label2" type="Label" parent="." unique_id=382809957]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "FPS"
+script = SubResource("GDScript_vmitb")

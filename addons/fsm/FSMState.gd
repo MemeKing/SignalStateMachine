@@ -9,7 +9,6 @@ class_name FSMState extends Node
 ## [br][br]
 ## [b] TIPS [/b]:[br]
 ## - Self-assign [member entity] with a type hint to get autocomplete for an intended type. [br]
-
 ## - If you emit an exit signal or [method revert], the rest of physics_process() will continue. Use [return] if that is unwanted.
 
 
@@ -46,6 +45,3 @@ func _notification(id: int) -> void:
 				entity = get_parent() 
 			else:
 				set_physics_process(false)
-
-		NOTIFICATION_PREDELETE:
-			_exit_state()
