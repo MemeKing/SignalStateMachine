@@ -17,12 +17,10 @@ script/source = "extends CharacterBody2D
 
 
 func equip_weapon(wep : FSMState):
-	fsm.delete_state(weapon_attack)
+	fsm.destroy_state(weapon_attack)
 	fsm.deploy_state(wep)
 	weapon_attack = wep
 	fsm.link_add(basic_movement.attacked,weapon_attack)
-	#fsm.change_state(basic_movement)
-	
 
 func _ready() -> void:
 	fsm.link_add(basic_movement.dashed,dash)

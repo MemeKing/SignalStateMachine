@@ -19,35 +19,36 @@ var jump_buffer = 0.0
 var coyote_time = 0.0
 var grounded = false
 
-func _enter_state() -> void:
-	print("Entering celestial basic")
 
 func _process(delta: float) -> void:
-	jump_buffer = move_toward(jump_buffer,0.0,delta)
-	coyote_time = move_toward(coyote_time,0.0,delta)
-	
 	if Input.is_action_just_pressed("jump"):
 		jump_buffer = 0.08
+	else:
+		jump_buffer = move_toward(jump_buffer,0.0,delta)
+
 	if entity.is_on_floor():
 		coyote_time = 0.03
+	else:
+		coyote_time = move_toward(coyote_time,0.0,delta)
 
-func _exit_state() -> void:
-	print("Leaving celestial basic")
 
 func _physics_process(delta: float) -> void:
 	var v = entity.velocity
 	var direction = Input.get_axis("ui_left","ui_right")
 	
-	if fsm_has_value("dpad_nerf"):
-		dpad_nerf = fsm.dpad_nerf
+	if "dpad_nerf" in entity:
+		dpad_nerf = entity.dpad_nerf
+	
+	if "jump_buffer" in entity:
+		jump_buffer = entity.jump_buffer
 
 	if jump_buffer > 0 and coyote_time > 0: 
 		coyote_time = 0
 		v.y = -jump_speed
 		jumped.emit()
 		jump_buffer = 0
-		if fsm_has_value("jump_buffer"):
-			fsm.jump_buffer = 0
+		if "jump_buffer" in entity:
+			entity.jump_buffer = 0
 		
 
 	if not grounded:

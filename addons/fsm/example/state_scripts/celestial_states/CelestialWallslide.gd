@@ -1,7 +1,7 @@
 class_name CelestialWallSlide
 extends FSMState
 
-@export var jump_speed = -400.0
+@export var jump_speed = 400.0
 @export var terminal_velocity = 100.0
 @export var grav = 150.0
 @export var upward_friction = 100.0
@@ -44,11 +44,12 @@ func _physics_process(delta: float) -> void:
 
 	if jump_buffer > 0:
 		v.x = 150 * sign(side)
-		v.y = -fsm.jump_velocity
-		fsm.dpad_nerf = 0.0
+		v.y = -jump_speed
 
 		if "dpad_nerf" in entity:
 			entity.dpad_nerf = 0.0
+		if "jump_buffer" in entity:
+			entity.jump_buffer = 0.0
 
 		revert()
 

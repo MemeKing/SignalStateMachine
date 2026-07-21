@@ -23,25 +23,17 @@ func _enter_state() -> void: pass
 ## Called when exiting this state. Use for cleanup code.
 func _exit_state() -> void: pass
 
-
-## Check if an FSM-wide value exists or not. Alternatively, use [code]entity.value[/code].
-func fsm_has_value(val:String) -> bool:
-	if fsm and val in fsm:
-		return true
-	else:
-		return false
-
-
 ## Revert the fsm back to the default state without using a link.
 func revert() -> void:
 	if not fsm: return
 	fsm.change_state(fsm.default_state)
 
 
-func _notification(id: int) -> void:
-	match id:
-		NOTIFICATION_ENTER_TREE:
-			if not entity and get_parent() is not FiniteStateMachine:
-				entity = get_parent() 
-			else:
-				set_physics_process(false)
+#func _notification(id: int) -> void:
+	#match id:
+		#NOTIFICATION_PARENTED:
+			#if get_parent() is not FiniteStateMachine:
+				#entity = get_parent()
+				#_enter_state()
+			#else:
+				#set_physics_process(false)

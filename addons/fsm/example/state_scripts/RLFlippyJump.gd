@@ -1,4 +1,4 @@
-class_name RLFlippyJump
+class_name FlippyJumpState
 extends FSMState
 
 var jump_speed = 500

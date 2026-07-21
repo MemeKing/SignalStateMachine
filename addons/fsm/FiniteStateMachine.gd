@@ -2,14 +2,14 @@
 class_name FiniteStateMachine extends Node
 ## Node-based finite state machine using signals
 ##
-## Instantiate [FSMState]s as children. Child States can use [code]entity.property[/code] to effect 
-## the target [member entity]. Upon receiving an exit signal from any state, the FSM will queue a 
-## transition to whatever state it has been linked to, if any. States can be mixed and matched to
-## create complex behaviors from a collection of simple and discrete states. 
+## Instantiate [FSMState]s as children. Child States can access [member entity] to effect the target 
+## Node. Upon receiving an exit signal from any state, the FSM will queue a transition to whatever 
+## state it has been linked to, if any. States can be mixed and matched to create complex behaviors 
+## from a collection of simple and reusable building blocks. 
 
 signal state_changed(new_state:FSMState,old_state:FSMState) ## Emits when a state changes successfully. 
 
-@export var entity : Node            ## What this FSM controls. Defaults to the parent node. Can be any [Node] type, but accessing non-existent members will cause a crash. 
+@export var entity : Node            ## Target node. Defaults to parent. Can be any [Node] type, but accessing non-existent members will cause a crash. 
 @export var default_state: FSMState  ## The state the FSM starts in. Defaults to 1st valid child.
 var current_state: FSMState          ## The state that is currently active. Use [method change_state] rather than setting this directly.
 var connections : Dictionary = {}    ## Dictionary storing connections from [method link]. 
@@ -30,7 +30,7 @@ func link_remove(exit_signal: Signal) -> void:
 		connections.erase(exit_signal)
 
 
-## Runs when [member entity] has emitted it's [member Node.ready] signal, meaning all it's child nodes are ready. [method setup] will still run automatically if you override this.
+## Runs when [member entity] is ready, meaning all it's child nodes are ready as well. [method setup] will still run automatically if you override this.
 func _deferred_ready() -> void: 
 	pass
 
@@ -46,15 +46,15 @@ func change_state_now(new_state: FSMState) -> void:
 		current_state.set_physics_process(false)
 		current_state._exit_state()
 	
-	state_changed.emit(new_state,current_state)
-	current_state = new_state
-	current_state._enter_state()
-	current_state.set_physics_process(true)
-	#current_state.set_process(true)
+	if new_state and new_state is FSMState:
+		state_changed.emit(new_state,current_state)
+		current_state = new_state
+		current_state._enter_state()
+		current_state.set_physics_process(true)
+	else:
+		push_error(entity.name + " tried to enter invalid state: " + str(new_state))
 
-
-## Initialize the FSM. Runs automatically at start, and with [method deploy_state], but you may need 
-## to run this if doing fancy manual state manipulation during gameplay.
+## Initialize the child states. Runs automatically. Only manually used if you're manually adding states during gameplay in odd ways (not using [method deploy_node]).
 func setup() -> void:
 	entity = get_parent() if not entity else entity
 	var child_states = find_children("*","FSMState",true,false)
@@ -62,7 +62,6 @@ func setup() -> void:
 		state.entity = entity
 		state.fsm = self
 		state.set_physics_process(false)
-		#state.set_process(false)
 	if not default_state:
 		default_state = child_states[0]
 
@@ -78,7 +77,7 @@ func deploy_state(state: FSMState) -> void:
 
 
 ## Remove a state and all it's connections.
-func delete_state(state: FSMState) -> void:
+func destroy_state(state: FSMState) -> void:
 	var to_remove: Array[Signal] = []
 	state.queue_free()
 	if state == current_state:

@@ -11,10 +11,41 @@
 resource_name = "MergatroidCharacter"
 script/source = "extends CharacterBody2D
 
+@export var unlocked_powers : Array[String] = []
+
 @onready var fsm = $FiniteStateMachine
+@onready var basic = $FiniteStateMachine/CelestialBasic
+@onready var wallslide = $FiniteStateMachine/CelestialWallSlide
+@onready var flippy = $FiniteStateMachine/FlippyJumpState
+@onready var dash = $FiniteStateMachine/CelestialDash
+
+var jump_buffer = 0.0
+var dpad_nerf = 1.0
+
+func _process(delta: float) -> void:
+	jump_buffer = move_toward(jump_buffer,0.0,delta)
+	dpad_nerf = move_toward(dpad_nerf,1.0,delta/2)
+	
+	if Input.is_action_just_pressed(\"jump\"):
+		jump_buffer = 0.03
+
+
+func unlock_power(power : String):
+	if unlocked_powers.has(\"power\"):
+		return
+	match power:
+		\"flippy_jump\":
+			fsm.link_add(basic.double_jumped,flippy)
+		\"dash\":
+			fsm.link_add(basic.dashed,dash)
+		\"walljump\":
+			fsm.link_add(basic.started_wallslide,wallslide)
+	unlocked_powers.append(power)
+
 
 func _ready() -> void:
-	fsm.link($FiniteStateMachine/CelestialBasicState.double_jumped,$FiniteStateMachine/RLFlippyJump)
+	for power in unlocked_powers:
+		unlock_power(power)
 "
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ldv2g"]
@@ -146,29 +177,31 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vmitb"]
-size = Vector2(20, 33)
+size = Vector2(9, 33)
 
 [node name="MergatroidCharacter" type="CharacterBody2D" unique_id=1890808486]
 script = SubResource("GDScript_ddsxs")
+unlocked_powers = Array[String]([""])
 
 [node name="FiniteStateMachine" type="Node" parent="." unique_id=1430257291]
 script = ExtResource("1_44hbh")
 metadata/_custom_type_script = "uid://6v7nibywdm8r"
 
-[node name="CelestialBasicState" type="Node" parent="FiniteStateMachine" unique_id=1427690087]
+[node name="CelestialBasic" type="Node" parent="FiniteStateMachine" unique_id=1427690087]
 script = ExtResource("2_kialg")
 jump_speed = 301
 metadata/_custom_type_script = "uid://b7v3gwost5rrf"
 
-[node name="CelestialDashState" type="Node" parent="FiniteStateMachine" unique_id=96065505]
+[node name="CelestialDash" type="Node" parent="FiniteStateMachine" unique_id=96065505]
 script = ExtResource("3_r6e0m")
+speed = 300
 metadata/_custom_type_script = "uid://bgad8cjq7jv38"
 
 [node name="CelestialWallSlide" type="Node" parent="FiniteStateMachine" unique_id=331921531]
 script = ExtResource("4_qbmfk")
 metadata/_custom_type_script = "uid://bjwxvxuhexls4"
 
-[node name="RLFlippyJump" type="Node" parent="FiniteStateMachine" unique_id=1338024086]
+[node name="FlippyJumpState" type="Node" parent="FiniteStateMachine" unique_id=1338024086]
 script = ExtResource("5_gk1i4")
 metadata/_custom_type_script = "uid://bkagppqbc2amc"
 
@@ -188,5 +221,5 @@ sprite_frames = SubResource("SpriteFrames_vmitb")
 animation = &"standing"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=958397632]
-position = Vector2(0, 2.5)
+position = Vector2(0.5, 2.5)
 shape = SubResource("RectangleShape2D_vmitb")

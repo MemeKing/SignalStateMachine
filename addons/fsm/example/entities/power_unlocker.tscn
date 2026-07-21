@@ -1,0 +1,110 @@
+[gd_scene format=3 uid="uid://bhgdtasbsr40c"]
+
+[ext_resource type="Texture2D" uid="uid://bctct2omvaprf" path="res://addons/fsm/example/art_assets/ThalonWeaponSpritesheet.png" id="1_gk2x1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ls8q3"]
+atlas = ExtResource("1_gk2x1")
+region = Rect2(0, 52, 42, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n2h55"]
+atlas = ExtResource("1_gk2x1")
+region = Rect2(42, 52, 42, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fsstx"]
+atlas = ExtResource("1_gk2x1")
+region = Rect2(84, 52, 42, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ujf7s"]
+atlas = ExtResource("1_gk2x1")
+region = Rect2(126, 52, 42, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ffffe"]
+atlas = ExtResource("1_gk2x1")
+region = Rect2(168, 52, 42, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sts0f"]
+atlas = ExtResource("1_gk2x1")
+region = Rect2(210, 52, 42, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oag5r"]
+atlas = ExtResource("1_gk2x1")
+region = Rect2(252, 52, 42, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gcvgf"]
+atlas = ExtResource("1_gk2x1")
+region = Rect2(294, 52, 42, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yfgh0"]
+atlas = ExtResource("1_gk2x1")
+region = Rect2(336, 52, 42, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oijuh"]
+atlas = ExtResource("1_gk2x1")
+region = Rect2(378, 52, 42, 52)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jqjsw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ls8q3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n2h55")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fsstx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ujf7s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ffffe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sts0f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oag5r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gcvgf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yfgh0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oijuh")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 12.0
+}]
+
+[sub_resource type="GDScript" id="GDScript_b75t8"]
+resource_name = "PowerUnlocker"
+script/source = "extends AnimatedSprite2D
+
+@export var power = \"UNSET\"
+
+
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	if body is CharacterBody2D:
+		body.unlock_power(power)
+		queue_free()
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vmitb"]
+radius = 14.035668
+
+[node name="PowerUnlocker" type="AnimatedSprite2D" unique_id=889953670]
+sprite_frames = SubResource("SpriteFrames_jqjsw")
+frame_progress = 0.46831915
+script = SubResource("GDScript_b75t8")
+power = "dash"
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1808973345]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=838156424]
+shape = SubResource("CircleShape2D_vmitb")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

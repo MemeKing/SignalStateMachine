@@ -2,6 +2,13 @@
 
 [ext_resource type="PackedScene" uid="uid://cpeb8wnru2not" path="res://addons/fsm/example/entities/characters/Celestial.tscn" id="2_cvbgm"]
 
+[sub_resource type="GDScript" id="GDScript_xqeka"]
+resource_name = "note"
+script/source = "extends Node
+
+@export_multiline var msg : String
+"
+
 [sub_resource type="Gradient" id="Gradient_mipha"]
 offsets = PackedFloat32Array(0, 0.31428573, 0.5619048, 1)
 colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1, 0.2037712, 0.38155112, 0.7897767, 1, 0.053316616, 0.19410801, 0.5519384, 1)
@@ -24,6 +31,10 @@ physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_qw7ou")
 
 [node name="CelestialExampleScene" type="Node2D" unique_id=1423619118]
+
+[node name="README" type="Node" parent="." unique_id=1955830419]
+script = SubResource("GDScript_xqeka")
+msg = "This is meant to be like a certain style of platformer where you can jump and wall jump and dash. If you need a more basic version of this you can unlink the unneeded states in CelestialCharacter, and you can add other states to it. "
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1538537338]
 scale = Vector2(2.215, 2.215)

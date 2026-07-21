@@ -2,7 +2,14 @@
 
 [ext_resource type="Script" uid="uid://b7v3gwost5rrf" path="res://addons/fsm/example/state_scripts/celestial_states/CelestialBasic.gd" id="1_x1o4s"]
 [ext_resource type="Texture2D" uid="uid://bhjcbfq4ysxaq" path="res://images/alien.png" id="2_tgisj"]
-[ext_resource type="Script" uid="uid://586gwh5nkmld" path="res://addons/fsm/example/state_scripts/misc/FSMDebugAnnounce.gd" id="3_1vt7w"]
+[ext_resource type="Script" uid="uid://bgad8cjq7jv38" path="res://addons/fsm/example/state_scripts/celestial_states/CelestialDash.gd" id="3_gluww"]
+
+[sub_resource type="GDScript" id="GDScript_vmitb"]
+resource_name = "note"
+script/source = "extends Node
+
+@export_multiline var msg : String
+"
 
 [sub_resource type="Gradient" id="Gradient_mipha"]
 offsets = PackedFloat32Array(0, 0.31428573, 0.5619048, 1)
@@ -25,24 +32,25 @@ texture = SubResource("GradientTexture2D_vnkhb")
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_akdxp")
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_vmitb"]
+radius = 23.345236
+
 [sub_resource type="GDScript" id="GDScript_dydi2"]
 resource_name = "ddsdf"
 script/source = "extends FiniteStateMachine
 
 func _ready() -> void:
-	link_add($CelestialBasicState.dashed,$FSMDebugAnnounce)
-	link_add($FSMDebugAnnounce.exit_state,$CelestialBasicState)
+	link_add($CelestialBasicState.dashed,$CelestialDashState)
 
-
-func _on_timer_timeout() -> void:
-	delete_state($FSMDebugAnnounce)
-	pass # Replace with function body.
+func _deferred_ready() -> void:
+	print(\"Extended deferred ready beginning now.\")
 "
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_vmitb"]
-radius = 23.345236
-
 [node name="Area51" type="Node2D" unique_id=468691985]
+
+[node name="README" type="Node" parent="." unique_id=1568412185]
+script = SubResource("GDScript_vmitb")
+msg = "This is where I do weird stuff so don't be alarmed at the chaos that may be happening, and don't think anything you see here is a recommendation."
 
 [node name="TileMapLayer2" type="TileMapLayer" parent="." unique_id=429687085]
 scale = Vector2(2.215, 2.215)
@@ -51,6 +59,13 @@ tile_set = SubResource("TileSet_x1o4s")
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=1864953843]
 position = Vector2(144, 241)
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D" unique_id=1873876690]
+scale = Vector2(0.09, 0.09)
+texture = ExtResource("2_tgisj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=1863853339]
+shape = SubResource("CircleShape2D_vmitb")
 
 [node name="FiniteStateMachine" type="Node" parent="CharacterBody2D" unique_id=1943361187]
 script = SubResource("GDScript_dydi2")
@@ -62,20 +77,6 @@ jump_speed = 315
 grav = 279
 metadata/_custom_type_script = "uid://b7v3gwost5rrf"
 
-[node name="FSMDebugAnnounce" type="Node" parent="CharacterBody2D/FiniteStateMachine" unique_id=1443666641]
-script = ExtResource("3_1vt7w")
-metadata/_custom_type_script = "uid://586gwh5nkmld"
-
-[node name="Timer" type="Timer" parent="CharacterBody2D/FiniteStateMachine" unique_id=1347454660]
-wait_time = 4.0
-one_shot = true
-autostart = true
-
-[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D" unique_id=1873876690]
-scale = Vector2(0.09, 0.09)
-texture = ExtResource("2_tgisj")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=1863853339]
-shape = SubResource("CircleShape2D_vmitb")
-
-[connection signal="timeout" from="CharacterBody2D/FiniteStateMachine/Timer" to="CharacterBody2D/FiniteStateMachine" method="_on_timer_timeout"]
+[node name="CelestialDashState" type="Node" parent="CharacterBody2D/FiniteStateMachine" unique_id=760212007]
+script = ExtResource("3_gluww")
+metadata/_custom_type_script = "uid://bgad8cjq7jv38"
