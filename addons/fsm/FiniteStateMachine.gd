@@ -9,7 +9,7 @@ class_name FiniteStateMachine extends Node
 
 signal state_changed(new_state:FSMState,old_state:FSMState) ## Emits when a state changes successfully. 
 
-@export var entity : Node            ## Target node. Defaults to parent. Can be any [Node] type, but accessing non-existent members will cause a crash. 
+@export var entity : Node            ## Target entity node. Defaults to parent. Can be any [Node] type, but states accessing non-existent members will cause a crash. 
 @export var default_state: FSMState  ## The state the FSM starts in. Defaults to 1st valid child.
 var current_state: FSMState          ## The state that is currently active. Use [method change_state] rather than setting this directly.
 var connections : Dictionary = {}    ## Dictionary storing connections from [method link]. 
@@ -76,7 +76,7 @@ func deploy_state(state: FSMState) -> void:
 	current_state.set_physics_process(true)
 
 
-## Remove a state and all it's connections.
+## Remove a state and unlink all it's connections.
 func destroy_state(state: FSMState) -> void:
 	var to_remove: Array[Signal] = []
 	state.queue_free()

@@ -1,2 +1,0 @@
-- Address situation where default state is destroyed
-- Remove the feature of states being able to run alone that's just dumb

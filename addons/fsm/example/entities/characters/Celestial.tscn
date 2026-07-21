@@ -1,35 +1,19 @@
 [gd_scene format=3 uid="uid://cpeb8wnru2not"]
 
+[ext_resource type="Script" uid="uid://dfix3n6huusyc" path="res://addons/fsm/example/entities/characters/celestial.gd" id="1_i8rl0"]
+[ext_resource type="Script" uid="uid://6v7nibywdm8r" path="res://addons/fsm/FiniteStateMachine.gd" id="2_esaho"]
 [ext_resource type="Script" uid="uid://b7v3gwost5rrf" path="res://addons/fsm/example/state_scripts/celestial_states/CelestialBasic.gd" id="2_sst55"]
 [ext_resource type="Script" uid="uid://bgad8cjq7jv38" path="res://addons/fsm/example/state_scripts/celestial_states/CelestialDash.gd" id="3_bvmyo"]
 [ext_resource type="Script" uid="uid://bjwxvxuhexls4" path="res://addons/fsm/example/state_scripts/celestial_states/CelestialWallslide.gd" id="4_cbace"]
-
-[sub_resource type="GDScript" id="GDScript_gimfh"]
-resource_name = "Celestial"
-script/source = "extends FiniteStateMachine
-
-@export var jump_velocity = 400
-
-var jump_buffer = 0.0
-var grounded = false
-var dpad_nerf = 1.0
-
-func _deferred_ready() -> void:
-	link_add($CelestialBasicState.dashed,$RLDashState)
-	link_add($CelestialBasicState.started_wallslide,$CelestialWallSlide)
-
-func _process(delta: float) -> void:
-	dpad_nerf = move_toward(dpad_nerf,1.0,delta/2)
-	jump_buffer = move_toward(jump_buffer,0.0,delta)
-"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gimfh"]
 size = Vector2(20, 35)
 
 [node name="CelestialCharacter" type="CharacterBody2D" unique_id=458612283]
+script = ExtResource("1_i8rl0")
 
 [node name="FiniteStateMachine" type="Node" parent="." unique_id=1778254563]
-script = SubResource("GDScript_gimfh")
+script = ExtResource("2_esaho")
 metadata/_custom_type_script = "uid://6v7nibywdm8r"
 
 [node name="CelestialBasicState" type="Node" parent="FiniteStateMachine" unique_id=1201255399]

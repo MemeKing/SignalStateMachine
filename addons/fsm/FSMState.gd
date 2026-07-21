@@ -11,7 +11,6 @@ class_name FSMState extends Node
 ## - Self-assign [member entity] with a type hint to get autocomplete for an intended type. [br]
 ## - If you emit an exit signal or [method revert], the rest of physics_process() will continue. Use [return] if that is unwanted.
 
-
 var entity : Node ## The node this state controls. Reference this to affect the entity. Example: [code]entity.velocity.x = 0[/code]
 var fsm : FiniteStateMachine ## The host FiniteStateMachine, if one exists. Otherwise state will run on it's parent.
 
@@ -23,17 +22,8 @@ func _enter_state() -> void: pass
 ## Called when exiting this state. Use for cleanup code.
 func _exit_state() -> void: pass
 
+
 ## Revert the fsm back to the default state without using a link.
 func revert() -> void:
 	if not fsm: return
 	fsm.change_state(fsm.default_state)
-
-
-#func _notification(id: int) -> void:
-	#match id:
-		#NOTIFICATION_PARENTED:
-			#if get_parent() is not FiniteStateMachine:
-				#entity = get_parent()
-				#_enter_state()
-			#else:
-				#set_physics_process(false)

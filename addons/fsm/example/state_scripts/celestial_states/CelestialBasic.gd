@@ -17,6 +17,7 @@ signal double_jumped
 var dpad_nerf = 1.0
 var jump_buffer = 0.0
 var coyote_time = 0.0
+var can_dash = false
 var grounded = false
 
 
@@ -41,6 +42,9 @@ func _physics_process(delta: float) -> void:
 	
 	if "jump_buffer" in entity:
 		jump_buffer = entity.jump_buffer
+		
+	if "can_dash" in entity:
+		can_dash = entity.can_dash
 
 	if jump_buffer > 0 and coyote_time > 0: 
 		coyote_time = 0
@@ -58,6 +62,7 @@ func _physics_process(delta: float) -> void:
 		v.y = v.y/2
 	
 	if grounded:
+		can_dash = true
 		if direction:
 			v.x = move_toward(v.x,direction*move_speed,acceleration*delta*dpad_nerf)
 		else:
@@ -78,7 +83,11 @@ func _physics_process(delta: float) -> void:
 	if entity.is_on_wall() and not entity.is_on_floor():
 		started_wallslide.emit()
 
-	if Input.is_action_just_pressed("dash"): dashed.emit()
+	if Input.is_action_just_pressed("dash") and can_dash: 
+		dashed.emit()
+		can_dash = false
+		if "can_dash" in entity:
+			entity.can_dash = false
 	if Input.is_action_just_pressed("attack"): attacked.emit()
 
 
