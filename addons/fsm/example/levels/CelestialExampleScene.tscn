@@ -42,7 +42,7 @@ tile_map_data = PackedByteArray("AAD9/yYAAAAQAAQAAAD9/ycAAAAQAAQAAAD9/ygAAAAQAAQ
 tile_set = SubResource("TileSet_wd7ou")
 
 [node name="Celestial" parent="." unique_id=458612283 instance=ExtResource("2_cvbgm")]
-position = Vector2(414, 353)
+position = Vector2(80, 511)
 
 [node name="Label" type="Label" parent="." unique_id=1370355170]
 offset_left = 61.0

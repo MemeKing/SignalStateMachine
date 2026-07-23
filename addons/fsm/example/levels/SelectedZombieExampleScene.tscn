@@ -3,6 +3,8 @@
 [ext_resource type="PackedScene" uid="uid://73jtusfjkoxw" path="res://addons/fsm/example/entities/characters/SelectedZombie.tscn" id="1_ycvnt"]
 [ext_resource type="PackedScene" uid="uid://cn4lpbv2l8rwe" path="res://addons/fsm/example/entities/WeaponPickup.tscn" id="2_cnfi2"]
 [ext_resource type="Script" uid="uid://bgad8cjq7jv38" path="res://addons/fsm/example/state_scripts/celestial_states/CelestialDash.gd" id="3_ypd7o"]
+[ext_resource type="Script" uid="uid://bkagppqbc2amc" path="res://addons/fsm/example/state_scripts/RLFlippyJump.gd" id="4_j5vmt"]
+[ext_resource type="Script" uid="uid://chs6gsx2euj1r" path="res://addons/fsm/example/state_scripts/misc/YesclipState.gd" id="5_qmtyv"]
 
 [sub_resource type="GDScript" id="GDScript_lhl1e"]
 resource_name = "note"
@@ -60,11 +62,13 @@ weapon = ExtResource("3_ypd7o")
 weapon_name = "DashDagger"
 
 [node name="Area2D" parent="." unique_id=561669944 instance=ExtResource("2_cnfi2")]
-position = Vector2(609, 419)
+position = Vector2(670, 426)
+weapon = ExtResource("4_j5vmt")
 weapon_name = "Flip Sword"
 
 [node name="WeaponPickup" parent="." unique_id=62340678 instance=ExtResource("2_cnfi2")]
-position = Vector2(241, 462)
+position = Vector2(148, 462)
+weapon = ExtResource("5_qmtyv")
 weapon_name = "Ring Of Enchantment"
 
 [node name="Label" type="Label" parent="." unique_id=428358496]

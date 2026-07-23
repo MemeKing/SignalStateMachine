@@ -54,7 +54,7 @@ func change_state_now(new_state: FSMState) -> void:
 	else:
 		push_error(entity.name + " tried to enter invalid state: " + str(new_state))
 
-## Initialize the child states. Runs automatically. Only manually used if you're manually adding states during gameplay in odd ways (not using [method deploy_node]).
+## Initialize the child states. Runs automatically. Only use if you're manually adding states during gameplay in odd ways (not using [method deploy_node]).
 func setup() -> void:
 	entity = get_parent() if not entity else entity
 	var child_states = find_children("*","FSMState",true,false)
